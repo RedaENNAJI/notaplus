@@ -472,7 +472,15 @@ function renderAprender() {
   if (mx.length > 0) {
     html += '<div style="margin-top:24px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--yellow);margin-bottom:12px">🧩 Mini ejercicios</div>';
     mx.forEach(function(ex, i) {
-      html += '<div class="mini-ex"><div class="mini-ex-q">' + ex.pregunta + '</div><input type="text" class="mini-ex-input" id="mx' + i + '" placeholder="Tu respuesta..."><button class="btn-check" onclick="checkMini(' + i + ', ' + JSON.stringify(ex.respuesta) + ', ' + JSON.stringify(ex.explicacion) + ')">Comprobar ✓</button><div class="mini-result" id="mxr' + i + '"></div></div>';
+      var opts = ex.opciones || [];
+      var letters = ['A','B','C','D'];
+      var optsHtml = '<div class="qcm-opts">';
+      opts.forEach(function(op, j) {
+        optsHtml += '<button class="qcm-opt" id="mxopt' + i + '_' + j + '" onclick="answerMini(' + i + ',' + j + ')">' +
+          '<span class="qcm-letter">' + letters[j] + '</span>' + op + '</button>';
+      });
+      optsHtml += '</div>';
+      html += '<div class="mini-ex"><div class="mini-ex-q">' + ex.pregunta + '</div>' + optsHtml + '<div class="qcm-feedback" id="mxr' + i + '"></div></div>';
     });
     html += '</div>';
   }
