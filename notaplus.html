@@ -444,6 +444,10 @@ function renderAprender() {
   var fullText = 'Bienvenido a la lección: ' + curLesson.titre + '. ' + (c.intro || '') + '. ';
   sections.forEach(function(s) { fullText += s.titulo + '. ' + s.texto + '. '; });
 
+  // Store texts globally for safe access
+  window._sectionTexts = [c.intro || ''].concat(sections.map(function(s){ return s.titulo + '. ' + s.texto; }));
+  window._fullLessonText = fullText;
+
   var html = '';
 
   // Audio bar
@@ -451,12 +455,12 @@ function renderAprender() {
 
   // Intro
   if (c.intro) {
-    html += '<div class="theory-section highlight open"><div class="theory-header"><div class="theory-title">📖 Introducción</div><span class="theory-arrow">▶</span></div><div class="theory-body">' + c.intro + '<br><br><button class="btn-read-section" onclick="speakSection(this, ' + JSON.stringify(c.intro) + ')">🔊 Escuchar</button></div></div>';
+    html += '<div class="theory-section highlight open"><div class="theory-header"><div class="theory-title">📖 Introducción</div><span class="theory-arrow">▶</span></div><div class="theory-body">' + c.intro + '<br><br><button class="btn-read-section" onclick="speakSectionIdx(this,0)">🔊 Escuchar</button></div></div>';
   }
 
   // Sections
   sections.forEach(function(s, i) {
-    html += '<div class="theory-section" id="ts' + i + '"><div class="theory-header" onclick="toggleSection(' + i + ')"><div class="theory-title">📌 ' + s.titulo + '</div><span class="theory-arrow">▶</span></div><div class="theory-body">' + s.texto + '<br><br><button class="btn-read-section" onclick="speakSection(this, ' + JSON.stringify(s.texto) + ')">🔊 Escuchar</button></div></div>';
+    html += '<div class="theory-section" id="ts' + i + '"><div class="theory-header" onclick="toggleSection(' + i + ')"><div class="theory-title">📌 ' + s.titulo + '</div><span class="theory-arrow">▶</span></div><div class="theory-body">' + s.texto + '<br><br><button class="btn-read-section" onclick="speakSectionIdx(this,' + (i+1) + ')">🔊 Escuchar</button></div></div>';
   });
 
   // Flashcards
@@ -562,10 +566,16 @@ function renderEjercicios() {
           '<span class="qcm-letter">' + letters[j] + '</span>' + op + '</button>';
       });
       optsHtml += '</div>';
-      html += '<div class="ex-item"><div class="ex-header"><span class="ex-num">Ej. ' + ex.numero_ex + '</span><div class="ex-dif">' + stars[dif] + '</div></div><div class="ex-enonce">' + ex.enonce + '</div>' + optsHtml + '<div class="qcm-feedback" id="corr' + i + '"></div></div>';
+      html += '<div class="ex-item"><div class="ex-header"><span class="ex-num">Ej. ' + ex.numero_ex + '</span><div class="ex-dif">' + stars[dif] + '</div><button class="btn-audio-ex" onclick="speakEnonce(' + i + ')">🔊</button></div><div class="ex-enonce">' + ex.enonce + '</div>' + optsHtml + '<div class="qcm-feedback" id="corr' + i + '"></div></div>';
     });
     panel.innerHTML = html;
   });
+}
+
+function speakEnonce(i) {
+  var ex = (window._exData || [])[i];
+  if (!ex) return;
+  speak(ex.enonce + '. ' + ex.correction, null);
 }
 
 function answerEx(i, chosen) {
