@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "builds": [{ "src": "notaplus.html", "use": "@vercel/static" }],
+  "routes": [
+    { "src": "/", "dest": "/notaplus.html" },
+    { "src": "/(.*)", "dest": "/notaplus.html" }
+  ]
+}
