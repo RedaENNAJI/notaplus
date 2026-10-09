@@ -137,6 +137,34 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
 .mini-result.show{display:block}
 .mini-result.ok{background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.25);color:#80e8c0}
 .mini-result.nok{background:rgba(216,90,48,.08);border:1px solid rgba(216,90,48,.2);color:#f0b090}
+/* ===== STEP-BY-STEP LEARNING ===== */
+.lesson-progress{background:rgba(255,255,255,.06);border-radius:50px;height:8px;margin-bottom:24px;overflow:hidden}
+.lesson-progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--yellow));border-radius:50px;transition:width .6s}
+.step-card{background:var(--navy2);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px}
+.step-header{background:linear-gradient(135deg,rgba(30,127,217,.2),rgba(29,158,117,.1));padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.step-num-badge{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border-radius:8px;padding:4px 12px;font-size:.75em;font-weight:900}
+.step-body{padding:18px}
+.step-content{color:#b0cce8;font-size:.9em;line-height:1.9;margin-bottom:16px;white-space:pre-line}
+.step-audio-btn{background:linear-gradient(135deg,rgba(29,158,117,.2),rgba(30,127,217,.1));border:1px solid rgba(29,158,117,.3);color:#4dd8a0;border-radius:50px;padding:9px 22px;font-weight:700;font-size:.82em;cursor:pointer;font-family:'Nunito',sans-serif;display:inline-flex;align-items:center;gap:7px;margin-bottom:18px}
+.step-check{background:rgba(245,197,24,.05);border:1px solid rgba(245,197,24,.15);border-radius:12px;padding:16px}
+.step-check-q{font-weight:700;font-size:.9em;color:#d4c080;margin-bottom:12px}
+.step-check-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.step-opt{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 13px;cursor:pointer;transition:all .3s;font-size:.86em;font-weight:600;text-align:left;color:#c0d4e8;display:flex;align-items:center;gap:9px;font-family:'Nunito',sans-serif;width:100%}
+.step-opt.correct{background:rgba(29,158,117,.2);border-color:rgba(29,158,117,.6);color:#a0f0d0}
+.step-opt.wrong{background:rgba(216,90,48,.15);border-color:rgba(216,90,48,.5);color:#f0c0a0}
+.step-opt.revealed{opacity:.35;pointer-events:none}
+.step-letter{width:26px;height:26px;border-radius:6px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.78em;flex-shrink:0}
+.step-feedback{margin-top:12px;padding:11px 14px;border-radius:10px;font-size:.84em;display:none;line-height:1.55}
+.step-feedback.show{display:block}
+.step-feedback.ok{background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.25);color:#80e8c0}
+.step-feedback.nok{background:rgba(216,90,48,.08);border:1px solid rgba(216,90,48,.2);color:#f0b090}
+.btn-next-step{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border:none;border-radius:50px;padding:11px 28px;font-weight:800;font-size:.88em;cursor:pointer;margin-top:12px;font-family:'Nunito',sans-serif;display:none;align-items:center;gap:7px}
+.btn-next-step.show{display:inline-flex}
+.steps-complete{text-align:center;padding:40px 20px}
+.steps-complete-icon{font-size:70px;margin-bottom:16px;display:block}
+.steps-complete h3{font-family:'Poppins',sans-serif;font-size:1.3em;font-weight:800;color:var(--yellow);margin-bottom:8px}
+.btn-to-exercicios{background:linear-gradient(135deg,var(--yellow),var(--gold));color:var(--navy);border:none;border-radius:50px;padding:13px 36px;font-weight:900;font-size:.95em;cursor:pointer;font-family:'Nunito',sans-serif}
+
 
 /* Exercises */
 .ex-item{background:var(--navy2);border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:13px;transition:all .3s}
@@ -169,30 +197,10 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
 ::-webkit-scrollbar-track{background:rgba(255,255,255,.03)}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:10px}
 
-/* QCM options */
-.qcm-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.qcm-opt{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 14px;cursor:pointer;transition:all .3s;font-size:.88em;font-weight:600;text-align:left;color:#c0d4e8;display:flex;align-items:center;gap:10px;font-family:'Nunito',sans-serif;width:100%}
-.qcm-opt:hover:not(:disabled){background:rgba(30,127,217,.15);border-color:rgba(30,127,217,.4);transform:translateX(3px)}
-.qcm-opt.correct{background:rgba(29,158,117,.2);border-color:rgba(29,158,117,.6);color:#a0f0d0}
-.qcm-opt.wrong{background:rgba(216,90,48,.15);border-color:rgba(216,90,48,.5);color:#f0c0a0}
-.qcm-opt.revealed{opacity:.4;pointer-events:none}
-.qcm-letter{width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8em;flex-shrink:0;transition:all .3s}
-.qcm-opt.correct .qcm-letter{background:rgba(29,158,117,.6)}
-.qcm-opt.wrong .qcm-letter{background:rgba(216,90,48,.6)}
-.qcm-feedback{margin-top:10px;padding:10px 14px;border-radius:9px;font-size:.84em;display:none;line-height:1.5}
-.qcm-feedback.show{display:block;animation:fadein .3s}
-.qcm-feedback.ok{background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.25);color:#80e8c0}
-.qcm-feedback.nok{background:rgba(216,90,48,.08);border:1px solid rgba(216,90,48,.2);color:#f0b090}
-
-.ex-score{background:linear-gradient(135deg,rgba(245,197,24,.1),rgba(29,158,117,.08));border:1px solid rgba(245,197,24,.2);border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:12px}
-.ex-score-val{font-size:1.4em;font-weight:900;color:var(--yellow)}
-.ex-score-txt{font-size:.82em;color:#7090a8}
-
 @media(max-width:520px){
   .flash-grid{grid-template-columns:1fr 1fr}
   .matieres-grid{grid-template-columns:1fr 1fr}
   .flash-card{height:140px}
-  .qcm-opts{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -434,36 +442,39 @@ function switchModule(mod) {
 // ===== MODULE APRENDER =====
 function renderAprender() {
   var panel = document.getElementById('mp-aprender');
+
+  // ── NEW: step-by-step mode ──
+  var steps = curLesson.steps || [];
+  if (steps.length > 0) {
+    renderSteps(steps);
+    return;
+  }
+
+  // ── LEGACY: sections mode ──
   var c = curLesson.contenu || {};
   var fc = curLesson.flashcards || [];
   var mx = curLesson.mini_exercices || [];
-  window._miniExData = mx;
   var sections = c.sections || [];
 
-  // Build intro text for full audio
   var fullText = 'Bienvenido a la lección: ' + curLesson.titre + '. ' + (c.intro || '') + '. ';
   sections.forEach(function(s) { fullText += s.titulo + '. ' + s.texto + '. '; });
-
-  // Store texts globally for safe access
-  window._sectionTexts = [c.intro || ''].concat(sections.map(function(s){ return s.titulo + '. ' + s.texto; }));
   window._fullLessonText = fullText;
 
-  var html = '';
+  var sectionTexts = [c.intro || ''];
+  sections.forEach(function(s) { sectionTexts.push(s.texto || ''); });
+  window._sectionTexts = sectionTexts;
 
-  // Audio bar
+  var html = '';
   html += '<div class="audio-bar"><button class="btn-audio" id="mainAudioBtn" onclick="toggleMainAudio()">▶️ Escuchar la lección</button><div class="audio-info">El profesor explica toda la lección<div class="audio-progress"><div class="audio-progress-fill" id="audioFill"></div></div></div></div>';
 
-  // Intro
   if (c.intro) {
     html += '<div class="theory-section highlight open"><div class="theory-header"><div class="theory-title">📖 Introducción</div><span class="theory-arrow">▶</span></div><div class="theory-body">' + c.intro + '<br><br><button class="btn-read-section" onclick="speakSectionIdx(this,0)">🔊 Escuchar</button></div></div>';
   }
 
-  // Sections
   sections.forEach(function(s, i) {
     html += '<div class="theory-section" id="ts' + i + '"><div class="theory-header" onclick="toggleSection(' + i + ')"><div class="theory-title">📌 ' + s.titulo + '</div><span class="theory-arrow">▶</span></div><div class="theory-body">' + s.texto + '<br><br><button class="btn-read-section" onclick="speakSectionIdx(this,' + (i+1) + ')">🔊 Escuchar</button></div></div>';
   });
 
-  // Flashcards
   if (fc.length > 0) {
     html += '<div style="margin-top:28px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--sky);margin-bottom:10px">🃏 Tarjetas de repaso</div><div class="flash-hint">💡 Haz clic en la tarjeta para ver la respuesta</div><div class="flash-grid">';
     fc.forEach(function(card, i) {
@@ -472,27 +483,109 @@ function renderAprender() {
     html += '</div></div>';
   }
 
-  // Mini exercices
   if (mx.length > 0) {
     html += '<div style="margin-top:24px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--yellow);margin-bottom:12px">🧩 Mini ejercicios</div>';
+    window._miniExData = mx;
     mx.forEach(function(ex, i) {
-      var opts = ex.opciones || [];
-      var letters = ['A','B','C','D'];
-      var optsHtml = '<div class="qcm-opts">';
-      opts.forEach(function(op, j) {
-        optsHtml += '<button class="qcm-opt" id="mxopt' + i + '_' + j + '" onclick="answerMini(' + i + ',' + j + ')">' +
-          '<span class="qcm-letter">' + letters[j] + '</span>' + op + '</button>';
-      });
-      optsHtml += '</div>';
-      html += '<div class="mini-ex"><div class="mini-ex-q">' + ex.pregunta + '</div>' + optsHtml + '<div class="qcm-feedback" id="mxr' + i + '"></div></div>';
+      html += '<div class="mini-ex"><div class="mini-ex-q">' + ex.pregunta + '</div><input type="text" class="mini-ex-input" id="mx' + i + '" placeholder="Tu respuesta..."><button class="btn-check" onclick="checkMiniIdx(' + i + ')">Comprobar ✓</button><div class="mini-result" id="mxr' + i + '"></div></div>';
     });
     html += '</div>';
   }
 
   panel.innerHTML = html;
-
-  // Store full text for main audio
   panel._fullText = fullText;
+}
+
+// ===== STEP-BY-STEP ENGINE =====
+var _curStepIdx = 0;
+var _stepsData = [];
+
+function renderSteps(steps) {
+  _stepsData = steps;
+  _curStepIdx = 0;
+  showStep(0);
+}
+
+function showStep(idx) {
+  var panel = document.getElementById('mp-aprender');
+  var total = _stepsData.length;
+  if (idx >= total) { showStepsComplete(); return; }
+  var step = _stepsData[idx];
+  var pct = Math.round(idx / total * 100);
+  var letters = ['A','B','C','D'];
+
+  var optsHtml = '<div class="step-check-opts">';
+  (step.check.opciones || []).forEach(function(op, j) {
+    optsHtml += '<button class="step-opt" id="sopt' + idx + '_' + j + '" onclick="answerStep(' + idx + ',' + j + ')">' +
+      '<span class="step-letter">' + letters[j] + '</span>' + op + '</button>';
+  });
+  optsHtml += '</div>';
+
+  var contentHtml = (step.contenido || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+  panel.innerHTML =
+    '<div style="display:flex;justify-content:space-between;font-size:.75em;color:#5070a0;margin-bottom:6px"><span>Punto ' + (idx+1) + ' de ' + total + '</span><span>' + pct + '%</span></div>' +
+    '<div class="lesson-progress"><div class="lesson-progress-fill" style="width:' + pct + '%"></div></div>' +
+    '<div class="step-card">' +
+      '<div class="step-header">' +
+        '<span class="step-num-badge">' + (idx+1) + '/' + total + '</span>' +
+        '<div style="font-family:Poppins,sans-serif;font-weight:700;font-size:.95em;flex:1">' + (step.titulo || '') + '</div>' +
+      '</div>' +
+      '<div class="step-body">' +
+        '<div class="step-content">' + contentHtml + '</div>' +
+        '<button class="step-audio-btn" id="stepAudioBtn" onclick="speakStep(' + idx + ')">🔊 Écouter l'explication</button>' +
+        '<div class="step-check">' +
+          '<div class="step-check-q">❓ ' + (step.check.pregunta || '') + '</div>' +
+          optsHtml +
+          '<div class="step-feedback" id="sfb' + idx + '"></div>' +
+          '<button class="btn-next-step" id="btnNextStep" onclick="goNextStep(' + idx + ')">Siguiente punto →</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+}
+
+function speakStep(idx) {
+  var btn = document.getElementById('stepAudioBtn');
+  var step = _stepsData[idx];
+  speak(step.audio || step.titulo, btn);
+}
+
+function answerStep(idx, chosen) {
+  var step = _stepsData[idx];
+  var correct = parseInt(step.check.correcta);
+  var opts = step.check.opciones || [];
+  opts.forEach(function(_, j) {
+    var btn = document.getElementById('sopt' + idx + '_' + j);
+    if (!btn) return;
+    btn.disabled = true;
+    if (j === correct) btn.classList.add('correct');
+    else if (j === chosen) btn.classList.add('wrong');
+    else btn.classList.add('revealed');
+  });
+  var ok = chosen === correct;
+  var fb = document.getElementById('sfb' + idx);
+  fb.className = 'step-feedback show ' + (ok ? 'ok' : 'nok');
+  fb.textContent = ok ? '✅ ¡Muy bien! ' + step.check.explicacion : '❌ ' + step.check.explicacion;
+  speak(ok ? '¡Muy bien! ' + step.check.explicacion : step.check.explicacion, null);
+  var nxt = document.getElementById('btnNextStep');
+  if (nxt) nxt.className = 'btn-next-step show';
+}
+
+function goNextStep(idx) {
+  _curStepIdx = idx + 1;
+  showStep(_curStepIdx);
+  window.scrollTo(0, 0);
+}
+
+function showStepsComplete() {
+  var panel = document.getElementById('mp-aprender');
+  panel.innerHTML =
+    '<div class="steps-complete">' +
+      '<span class="steps-complete-icon">🏆</span>' +
+      '<h3>¡Lección completada!</h3>' +
+      '<p style="color:#7090b8;margin-bottom:24px">Has repasado todos los puntos de la lección.<br>Ahora practica con los ejercicios.</p>' +
+      '<button class="btn-to-exercicios" onclick="switchModule('ejercicios')">Ir a los ejercicios →</button>' +
+    '</div>';
 }
 
 function toggleMainAudio() {
@@ -519,25 +612,22 @@ function flipCard(i) {
   }
 }
 
-function answerMini(i, chosen) {
+function checkMiniIdx(i) {
   var data = (window._miniExData || [])[i];
   if (!data) return;
-  var correct = parseInt(data.correcta); var expl = data.explicacion;
-  var opts = data.opciones || [];
-  // Style all buttons
-  opts.forEach(function(_, j) {
-    var btn = document.getElementById('mxopt' + i + '_' + j);
-    if (!btn) return;
-    btn.disabled = true;
-    if (j === correct) btn.classList.add('correct');
-    else if (j === chosen) btn.classList.add('wrong');
-    else btn.classList.add('revealed');
-  });
+  var val = document.getElementById('mx' + i).value.trim().toLowerCase();
+  var correct = data.respuesta; var expl = data.explicacion;
   var res = document.getElementById('mxr' + i);
-  var ok = chosen === correct;
-  res.className = 'qcm-feedback show ' + (ok ? 'ok' : 'nok');
-  res.textContent = ok ? '✅ ¡Correcto! ' + expl : '❌ La respuesta correcta es: ' + opts[correct] + '. ' + expl;
-  speak(ok ? '¡Muy bien! ' + expl : 'La respuesta correcta es: ' + opts[correct] + '. ' + expl, null);
+  var ok = val === correct.toLowerCase() || val.replace(/\s/g,'') === correct.toLowerCase().replace(/\s/g,'');
+  if (ok) {
+    res.className = 'mini-result show ok';
+    res.textContent = '✅ ¡Correcto! ' + expl;
+    speak('¡Muy bien! ' + expl, null);
+  } else {
+    res.className = 'mini-result show nok';
+    res.textContent = '❌ No exactamente. La respuesta es: ' + correct + '. ' + expl;
+    speak('La respuesta correcta es: ' + correct + '. ' + expl, null);
+  }
 }
 
 // ===== MODULE EJERCICIOS =====
@@ -551,58 +641,30 @@ function renderEjercicios() {
       return;
     }
     window._corrections = data.map(function(ex){return ex.correction;});
-    window._exData = data;
-    window._exScore = {correct:0, total:0};
     var stars = ['', '⭐', '⭐⭐', '⭐⭐⭐'];
-    var letters = ['A','B','C','D'];
-    var html = '<div class="ex-score"><div class="ex-score-val" id="exScore">0/' + data.length + '</div><div class="ex-score-txt">ejercicios correctos — ¡Tú puedes!</div></div>';
-    html += '<div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--coral);margin-bottom:18px">✏️ Ejercicios del libro — ' + data.length + ' ejercicios</div>';
+    var html = '<div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--coral);margin-bottom:18px">✏️ Ejercicios del libro — ' + data.length + ' ejercicios</div>';
     data.forEach(function(ex, i) {
       var dif = ex.difficulte || 1;
-      var opts = ex.opciones_qcm || [];
-      var optsHtml = '<div class="qcm-opts">';
-      opts.forEach(function(op, j) {
-        optsHtml += '<button class="qcm-opt" id="exopt' + i + '_' + j + '" onclick="answerEx(' + i + ',' + j + ')">' +
-          '<span class="qcm-letter">' + letters[j] + '</span>' + op + '</button>';
-      });
-      optsHtml += '</div>';
-      html += '<div class="ex-item"><div class="ex-header"><span class="ex-num">Ej. ' + ex.numero_ex + '</span><div class="ex-dif">' + stars[dif] + '</div><button class="btn-audio-ex" onclick="speakEnonce(' + i + ')">🔊</button></div><div class="ex-enonce">' + ex.enonce + '</div>' + optsHtml + '<div class="qcm-feedback" id="corr' + i + '"></div></div>';
+      html += '<div class="ex-item"><div class="ex-header"><span class="ex-num">Ej. ' + ex.numero_ex + '</span><div class="ex-dif">' + stars[dif] + '</div></div><div class="ex-enonce">' + ex.enonce + '</div><div class="ex-answer-area"><input type="text" class="ex-input" id="exi' + i + '" placeholder="Escribe tu respuesta aquí..."><div class="ex-btns"><button class="btn-correction" onclick="showCorrIdx(' + i + ')">✅ Ver corrección</button><button class="btn-audio-ex" onclick="speakCorrIdx(' + i + ')">🔊 Escuchar</button></div><div class="corr-box" id="corr' + i + '"></div></div></div>';
     });
     panel.innerHTML = html;
   });
 }
 
-function speakEnonce(i) {
-  var ex = (window._exData || [])[i];
-  if (!ex) return;
-  speak(ex.enonce + '. ' + ex.correction, null);
+function showCorrIdx(i) {
+  var corr = (window._corrections || [])[i] || '';
+  var box = document.getElementById('corr' + i);
+  box.innerHTML = '📝 <strong>Corrección:</strong> ' + corr;
+  box.classList.add('show');
+  speak(corr, null);
 }
 
-function answerEx(i, chosen) {
-  var ex = (window._exData || [])[i];
-  if (!ex) return;
-  var correct = parseInt(ex.correcta_idx) || 0;
-  var opts = ex.opciones_qcm || [];
+function speakCorrIdx(i) {
   var corr = (window._corrections || [])[i] || '';
-  // Style buttons
-  opts.forEach(function(_, j) {
-    var btn = document.getElementById('exopt' + i + '_' + j);
-    if (!btn) return;
-    btn.disabled = true;
-    if (j === correct) btn.classList.add('correct');
-    else if (j === chosen) btn.classList.add('wrong');
-    else btn.classList.add('revealed');
-  });
-  var ok = chosen === correct;
-  if (ok && window._exScore) {
-    window._exScore.correct++;
-    var sc = document.getElementById('exScore');
-    if (sc) sc.textContent = window._exScore.correct + '/' + (window._exData || []).length;
-  }
   var box = document.getElementById('corr' + i);
-  box.className = 'qcm-feedback show ' + (ok ? 'ok' : 'nok');
-  box.innerHTML = (ok ? '✅ ¡Correcto! ' : '❌ ') + '📝 ' + corr;
-  speak((ok ? '¡Muy bien! ' : 'La corrección es: ') + corr, null);
+  box.innerHTML = '📝 <strong>Corrección:</strong> ' + corr;
+  box.classList.add('show');
+  speak('La corrección es: ' + corr, null);
 }
 
 // ===== INIT =====
