@@ -328,7 +328,26 @@ function getSpanishVoice() {
   return es.length > 0 ? es[0] : voices[0];
 }
 
+function cleanMath(text) {
+  return text
+    .replace(/×/g, ' por ')
+    .replace(/\*/g, ' por ')
+    .replace(/÷/g, ' entre ')
+    .replace(/²/g, ' al cuadrado ')
+    .replace(/³/g, ' al cubo ')
+    .replace(/\^(\d+)/g, ' elevado a $1 ')
+    .replace(/⁰/g, ' elevado a cero ')
+    .replace(/¹/g, ' elevado a uno ')
+    .replace(/⁴/g, ' elevado a cuatro ')
+    .replace(/⁵/g, ' elevado a cinco ')
+    .replace(/⁻/g, ' elevado a menos ')
+    .replace(/√/g, ' raíz cuadrada de ')
+    .replace(/=/g, ' es igual a ')
+    .replace(/\s+/g, ' ').trim();
+}
+
 function speak(text, btnEl) {
+  text = cleanMath(text);
   if (speaking) { synth.cancel(); speaking = false; if (audioBtn) { audioBtn.textContent = '▶️ Escuchar'; audioBtn.classList.remove('playing'); } if (audioBtn === btnEl) { audioBtn = null; return; } }
   utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'es-ES';
