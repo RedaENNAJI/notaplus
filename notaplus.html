@@ -173,6 +173,10 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
 .ex-qcm-opt:disabled{cursor:default}
 .ex-qcm-opt.ex-qcm-correct{background:rgba(29,158,117,.2);border-color:#1d9e75;color:#4dffc3;font-weight:700}
 .ex-qcm-opt.ex-qcm-wrong{background:rgba(255,80,80,.15);border-color:#ff5050;color:#ff8888}
+.btn-retry-ex{background:rgba(245,197,24,.12);border:1px solid rgba(245,197,24,.35);color:var(--yellow);border-radius:8px;padding:9px 18px;font-weight:700;font-size:.82em;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-retry-ex:hover{background:rgba(245,197,24,.25)}
+@keyframes exHighlight{0%{box-shadow:0 0 0 0 rgba(245,197,24,.6)}50%{box-shadow:0 0 0 8px rgba(245,197,24,.2)}100%{box-shadow:0 0 0 0 rgba(245,197,24,0)}}
+.ex-highlight{animation:exHighlight 1.5s ease-out;border-color:rgba(245,197,24,.5)!important}
 
 /* Exercises */
 .ex-item{background:var(--navy2);border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:13px;transition:all .3s}
@@ -209,6 +213,58 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
   .flash-grid{grid-template-columns:1fr 1fr}
   .matieres-grid{grid-template-columns:1fr 1fr}
   .flash-card{height:140px}
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media(max-width:680px){
+  /* Login */
+  .login-box{padding:14px}
+  .login-logo-icon{font-size:48px}
+  .login-logo h1{font-size:2em}
+
+  /* Topbar */
+  .topbar{padding:10px 14px;gap:8px}
+  .tb-logo{font-size:.95em}
+  .tb-user{padding:4px 10px;font-size:.72em}
+
+  /* Dashboard / Matieres */
+  .dash-header{padding:20px 14px 12px}
+  .dash-header h2{font-size:1.2em}
+  .matieres-grid{grid-template-columns:1fr 1fr;gap:10px;padding:0 14px}
+  .mat-card{padding:18px 12px}
+  .mat-icon{font-size:2em}
+  .mat-name{font-size:.85em}
+  .mat-count{font-size:.72em}
+
+  /* Lessons list */
+  .lessons-list{padding:10px}
+  .lesson-card{padding:14px}
+
+  /* Module panel */
+  .module-panel{padding:12px 10px}
+  .mod-tabs{padding:0 10px}
+  .mod-tab{padding:9px 14px;font-size:.8em}
+
+  /* Steps (Aprender) */
+  .step-card{padding:16px}
+  .step-title{font-size:1em}
+  .step-body{font-size:.88em}
+  .step-audio-btn{font-size:.82em;padding:9px 14px}
+  .qcm-opts{gap:8px}
+  .qcm-opt{padding:11px 14px;font-size:.85em}
+  .step-nav{gap:8px}
+  .step-nav-btn{padding:10px 14px;font-size:.8em}
+
+  /* Exercises */
+  .ex-item{padding:14px}
+  .ex-enonce{font-size:.88em}
+  .ex-qcm-opt{padding:10px 13px;font-size:.85em}
+  .ex-btns{flex-wrap:wrap;gap:6px}
+  .btn-correction,.btn-audio-ex,.btn-retry-ex{padding:8px 12px;font-size:.78em}
+
+  /* Flash cards */
+  .flash-grid{grid-template-columns:1fr 1fr;gap:8px;padding:0 10px}
+  .flash-card{height:130px;font-size:.85em}
 }
 </style>
 </head>
@@ -670,6 +726,7 @@ function renderEjercicios() {
     }
     data.sort(function(a, b){ return parseInt(a.numero_ex) - parseInt(b.numero_ex); });
     window._corrections = data.map(function(ex){return ex.correction;});
+    window._exData = data;
     var stars = ['', '⭐', '⭐⭐', '⭐⭐⭐'];
     var html = '<div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--coral);margin-bottom:18px">✏️ Ejercicios del libro — ' + data.length + ' ejercicios</div>';
     data.forEach(function(ex, i) {
@@ -686,7 +743,7 @@ function renderEjercicios() {
       } else {
         answerArea = '<input type="text" class="ex-input" id="exi' + i + '" placeholder="Escribe tu respuesta aquí...">';
       }
-      html += '<div class="ex-item"><div class="ex-header"><span class="ex-num">Ej. ' + ex.numero_ex + '</span><div class="ex-dif">' + stars[dif] + '</div></div><div class="ex-enonce">' + ex.enonce + '</div><div class="ex-answer-area">' + answerArea + '<div class="ex-btns"><button class="btn-correction" onclick="showCorrIdx(' + i + ')">✅ Ver corrección</button><button class="btn-audio-ex" onclick="speakCorrIdx(' + i + ')">🔊 Escuchar</button></div><div class="corr-box" id="corr' + i + '"></div></div></div>';
+      html += '<div class="ex-item" id="exitem' + i + '"><div class="ex-header"><span class="ex-num">Ej. ' + ex.numero_ex + '</span><div class="ex-dif">' + stars[dif] + '</div></div><div class="ex-enonce">' + ex.enonce + '</div><div class="ex-answer-area">' + answerArea + '<div class="ex-btns"><button class="btn-correction" onclick="showCorrIdx(' + i + ')">✅ Ver corrección</button><button class="btn-audio-ex" onclick="speakCorrIdx(' + i + ')">🔊 Escuchar</button></div><div class="corr-box" id="corr' + i + '"></div></div></div>';
     });
     panel.innerHTML = html;
   });
@@ -704,9 +761,38 @@ function answerExQcm(i, chosen, correct) {
   var ok = chosen === correct;
   var corr = (window._corrections || [])[i] || '';
   var box = document.getElementById('corr' + i);
-  box.innerHTML = (ok ? '✅ <strong>¡Correcto!</strong> ' : '❌ <strong>Incorrecto.</strong> ') + corr;
+  var retryBtn = !ok ? '<button class="btn-retry-ex" onclick="retryExQcm(' + i + ')">🔄 Reintentar con otra pregunta</button>' : '';
+  box.innerHTML = (ok ? '✅ <strong>¡Correcto!</strong> ' : '❌ <strong>Incorrecto.</strong> ') + corr + (retryBtn ? '<br><br>' + retryBtn : '');
   box.classList.add('show');
   speak(ok ? '¡Correcto! ' + corr : 'Incorrecto. ' + corr, null);
+}
+
+function retryExQcm(i) {
+  var allData = window._exData || [];
+  if (!allData.length) return;
+  // Choisir un exercice aléatoire différent de l'actuel
+  var pool = allData.filter(function(_, idx) { return idx !== i; });
+  if (!pool.length) pool = allData;
+  var pick = pool[Math.floor(Math.random() * pool.length)];
+  var pickIdx = allData.indexOf(pick);
+  // Scroll vers l'exercice choisi et le mettre en surbrillance
+  var item = document.getElementById('exitem' + pickIdx);
+  if (!item) return;
+  // Réinitialiser cet exercice
+  var container = document.getElementById('exqcm' + pickIdx);
+  if (container) {
+    var btns = container.querySelectorAll('.ex-qcm-opt');
+    btns.forEach(function(btn) {
+      btn.disabled = false;
+      btn.classList.remove('ex-qcm-correct', 'ex-qcm-wrong');
+    });
+  }
+  var box = document.getElementById('corr' + pickIdx);
+  if (box) { box.innerHTML = ''; box.classList.remove('show'); }
+  item.classList.add('ex-highlight');
+  setTimeout(function(){ item.classList.remove('ex-highlight'); }, 1500);
+  item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  speak('Intenta esta pregunta.', null);
 }
 
 function showCorrIdx(i) {
