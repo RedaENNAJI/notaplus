@@ -166,6 +166,14 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
 .btn-to-exercicios{background:linear-gradient(135deg,var(--yellow),var(--gold));color:var(--navy);border:none;border-radius:50px;padding:13px 36px;font-weight:900;font-size:.95em;cursor:pointer;font-family:'Nunito',sans-serif}
 
 
+/* QCM exercises */
+.ex-qcm-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.ex-qcm-opt{background:rgba(255,255,255,.05);border:1.5px solid var(--border);border-radius:10px;padding:11px 16px;color:#c8d8f0;font-size:.9em;text-align:left;cursor:pointer;transition:all .2s;font-family:Poppins,sans-serif}
+.ex-qcm-opt:hover:not(:disabled){background:rgba(30,127,217,.15);border-color:var(--blue);color:#fff}
+.ex-qcm-opt:disabled{cursor:default}
+.ex-qcm-opt.ex-qcm-correct{background:rgba(29,158,117,.2);border-color:#1d9e75;color:#4dffc3;font-weight:700}
+.ex-qcm-opt.ex-qcm-wrong{background:rgba(255,80,80,.15);border-color:#ff5050;color:#ff8888}
+
 /* Exercises */
 .ex-item{background:var(--navy2);border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:13px;transition:all .3s}
 .ex-item:hover{border-color:rgba(255,255,255,.15)}
@@ -584,8 +592,9 @@ function answerStep(idx, chosen) {
   var ok = chosen === correct;
   var fb = document.getElementById('sfb' + idx);
   fb.className = 'step-feedback show ' + (ok ? 'ok' : 'nok');
-  fb.textContent = ok ? '✅ ¡Muy bien! ' + step.check.explicacion : '❌ ' + step.check.explicacion;
-  speak(ok ? '¡Muy bien! ' + step.check.explicacion : step.check.explicacion, null);
+  var expl = step.check.explicacion || '';
+  fb.textContent = ok ? '✅ ¡Muy bien! ' + expl : '❌ No es correcto. La respuesta correcta es: ' + opts[correct] + '. ' + expl;
+  speak(ok ? '¡Muy bien! ' + expl : 'No es correcto. La respuesta correcta es: ' + opts[correct] + '. ' + expl, null);
   var nxt = document.getElementById('btnNextStep');
   if (nxt) nxt.className = 'btn-next-step show';
 }
@@ -664,10 +673,39 @@ function renderEjercicios() {
     var html = '<div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--coral);margin-bottom:18px">✏️ Ejercicios del libro — ' + data.length + ' ejercicios</div>';
     data.forEach(function(ex, i) {
       var dif = ex.difficulte || 1;
-      html += '<div class="ex-item"><div class="ex-header"><span class="ex-num">Ej. ' + ex.numero_ex + '</span><div class="ex-dif">' + stars[dif] + '</div></div><div class="ex-enonce">' + ex.enonce + '</div><div class="ex-answer-area"><input type="text" class="ex-input" id="exi' + i + '" placeholder="Escribe tu respuesta aquí..."><div class="ex-btns"><button class="btn-correction" onclick="showCorrIdx(' + i + ')">✅ Ver corrección</button><button class="btn-audio-ex" onclick="speakCorrIdx(' + i + ')">🔊 Escuchar</button></div><div class="corr-box" id="corr' + i + '"></div></div></div>';
+      var answerArea = '';
+      if (ex.type === 'qcm' && ex.opciones_qcm && ex.opciones_qcm.length > 0) {
+        var opts = ex.opciones_qcm;
+        var letters = ['A', 'B', 'C', 'D'];
+        answerArea = '<div class="ex-qcm-opts" id="exqcm' + i + '">';
+        opts.forEach(function(opt, j) {
+          answerArea += '<button class="ex-qcm-opt" onclick="answerExQcm(' + i + ',' + j + ',' + ex.correcta_idx + ')">' + letters[j] + '. ' + opt + '</button>';
+        });
+        answerArea += '</div>';
+      } else {
+        answerArea = '<input type="text" class="ex-input" id="exi' + i + '" placeholder="Escribe tu respuesta aquí...">';
+      }
+      html += '<div class="ex-item"><div class="ex-header"><span class="ex-num">Ej. ' + ex.numero_ex + '</span><div class="ex-dif">' + stars[dif] + '</div></div><div class="ex-enonce">' + ex.enonce + '</div><div class="ex-answer-area">' + answerArea + '<div class="ex-btns"><button class="btn-correction" onclick="showCorrIdx(' + i + ')">✅ Ver corrección</button><button class="btn-audio-ex" onclick="speakCorrIdx(' + i + ')">🔊 Escuchar</button></div><div class="corr-box" id="corr' + i + '"></div></div></div>';
     });
     panel.innerHTML = html;
   });
+}
+
+function answerExQcm(i, chosen, correct) {
+  var container = document.getElementById('exqcm' + i);
+  if (!container) return;
+  var btns = container.querySelectorAll('.ex-qcm-opt');
+  btns.forEach(function(btn, j) {
+    btn.disabled = true;
+    if (j === correct) btn.classList.add('ex-qcm-correct');
+    else if (j === chosen) btn.classList.add('ex-qcm-wrong');
+  });
+  var ok = chosen === correct;
+  var corr = (window._corrections || [])[i] || '';
+  var box = document.getElementById('corr' + i);
+  box.innerHTML = (ok ? '✅ <strong>¡Correcto!</strong> ' : '❌ <strong>Incorrecto.</strong> ') + corr;
+  box.classList.add('show');
+  speak(ok ? '¡Correcto! ' + corr : 'Incorrecto. ' + corr, null);
 }
 
 function showCorrIdx(i) {
