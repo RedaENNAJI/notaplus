@@ -388,6 +388,13 @@ function toast(msg) {
 // ===== AUDIO =====
 function getSpanishVoice() {
   var voices = synth.getVoices();
+  // Priorité : voix masculine espagnole
+  var esMale = voices.filter(function(v) {
+    var n = v.name.toLowerCase();
+    return v.lang.indexOf('es') === 0 && (n.indexOf('male') !== -1 || n.indexOf('jorge') !== -1 || n.indexOf('diego') !== -1 || n.indexOf('carlos') !== -1 || n.indexOf('pablo') !== -1 || n.indexOf('juan') !== -1 || n.indexOf('miguel') !== -1 || n.indexOf('antonio') !== -1 || n.indexOf('alvaro') !== -1 || n.indexOf('sergio') !== -1 || n.indexOf('enrique') !== -1);
+  });
+  if (esMale.length > 0) return esMale[0];
+  // Fallback : n'importe quelle voix espagnole
   var es = voices.filter(function(v) { return v.lang.indexOf('es') === 0; });
   return es.length > 0 ? es[0] : voices[0];
 }
@@ -415,8 +422,8 @@ function speak(text, btnEl) {
   if (speaking) { synth.cancel(); speaking = false; if (audioBtn) { audioBtn.textContent = '▶️ Escuchar'; audioBtn.classList.remove('playing'); } if (audioBtn === btnEl) { audioBtn = null; return; } }
   utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'es-ES';
-  utterance.rate = 0.9;
-  utterance.pitch = 1.05;
+  utterance.rate = 0.88;
+  utterance.pitch = 0.85;
   var voice = getSpanishVoice();
   if (voice) utterance.voice = voice;
   speaking = true; audioBtn = btnEl;
