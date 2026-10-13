@@ -662,12 +662,13 @@ function checkMiniIdx(i) {
 function renderEjercicios() {
   var panel = document.getElementById('mp-ejercicios');
   panel.innerHTML = '<div class="spinner"></div>';
-  sb('/rest/v1/exercises?lesson_id=eq.' + curLesson.id + '&order=numero_ex&select=*')
+  sb('/rest/v1/exercises?lesson_id=eq.' + curLesson.id + '&order=numero_ex.asc&select=*')
   .then(function(data) {
     if (!data || data.length === 0) {
       panel.innerHTML = '<div style="text-align:center;padding:60px;color:#4060a0">✏️ El profesor está preparando los ejercicios.</div>';
       return;
     }
+    data.sort(function(a, b){ return parseInt(a.numero_ex) - parseInt(b.numero_ex); });
     window._corrections = data.map(function(ex){return ex.correction;});
     var stars = ['', '⭐', '⭐⭐', '⭐⭐⭐'];
     var html = '<div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--coral);margin-bottom:18px">✏️ Ejercicios del libro — ' + data.length + ' ejercicios</div>';
