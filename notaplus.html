@@ -334,9 +334,11 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
     <div class="module-tabs">
       <button class="mtab active" id="mtab-aprender" onclick="switchModule('aprender')" style="background:linear-gradient(135deg,#1e7fd9,#1d9e75)">📚 Aprender</button>
       <button class="mtab" id="mtab-ejercicios" onclick="switchModule('ejercicios')">✏️ Ejercicios</button>
+      <button class="mtab" id="mtab-animacion" style="display:none" onclick="switchModule('animacion')">🎬 Animación</button>
     </div>
     <div class="module-panel active" id="mp-aprender"></div>
     <div class="module-panel" id="mp-ejercicios"></div>
+    <div class="module-panel" id="mp-animacion"></div>
   </div>
 </div>
 
@@ -514,6 +516,8 @@ function showLesson() {
   if (!curLesson) return;
   show('sc-lesson');
   document.getElementById('lessonTopTitle').innerHTML = curMatiere.icone + ' ' + curLesson.titre + ' <span style="color:var(--yellow)"></span>';
+  var tabAnim = document.getElementById('mtab-animacion');
+  tabAnim.style.display = curLesson.id === 'a1b2c3d4-e5f6-7890-abcd-ef1234567890' ? '' : 'none';
   switchModule('aprender');
 }
 
@@ -522,11 +526,13 @@ function switchModule(mod) {
   document.querySelectorAll('.module-panel').forEach(function(p) { p.classList.remove('active'); });
   var btn = document.getElementById('mtab-' + mod); btn.classList.add('active');
   if (mod === 'aprender') btn.style.background = 'linear-gradient(135deg,#1e7fd9,#1d9e75)';
-  else btn.style.background = 'linear-gradient(135deg,#D85A30,#b34a20)';
+  else if (mod === 'ejercicios') btn.style.background = 'linear-gradient(135deg,#D85A30,#b34a20)';
+  else if (mod === 'animacion') btn.style.background = 'linear-gradient(135deg,#8B5CF6,#6d28d9)';
   document.getElementById('mp-' + mod).classList.add('active');
   synth.cancel(); speaking = false;
   if (mod === 'aprender') renderAprender();
-  else renderEjercicios();
+  else if (mod === 'ejercicios') renderEjercicios();
+  else if (mod === 'animacion') renderAnimacion();
 }
 
 // ===== MODULE APRENDER =====
@@ -816,6 +822,11 @@ function speakCorrIdx(i) {
   box.innerHTML = '📝 <strong>Corrección:</strong> ' + corr;
   box.classList.add('show');
   speak('La corrección es: ' + corr, null);
+}
+
+function renderAnimacion() {
+  var panel = document.getElementById('mp-animacion');
+  panel.innerHTML = '<iframe src="https://claude.ai/artifact/XtooVu7DvscqYrQ7EtNk6E" style="width:100%;height:80vh;border:none;border-radius:12px" allow="speech-synthesis"></iframe>';
 }
 
 // ===== INIT =====
