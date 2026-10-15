@@ -334,11 +334,9 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
     <div class="module-tabs">
       <button class="mtab active" id="mtab-aprender" onclick="switchModule('aprender')" style="background:linear-gradient(135deg,#1e7fd9,#1d9e75)">📚 Aprender</button>
       <button class="mtab" id="mtab-ejercicios" onclick="switchModule('ejercicios')">✏️ Ejercicios</button>
-      <button class="mtab" id="mtab-animacion" style="display:none" onclick="switchModule('animacion')">🎬 Animación</button>
     </div>
     <div class="module-panel active" id="mp-aprender"></div>
     <div class="module-panel" id="mp-ejercicios"></div>
-    <div class="module-panel" id="mp-animacion"></div>
   </div>
 </div>
 
@@ -516,8 +514,6 @@ function showLesson() {
   if (!curLesson) return;
   show('sc-lesson');
   document.getElementById('lessonTopTitle').innerHTML = curMatiere.icone + ' ' + curLesson.titre + ' <span style="color:var(--yellow)"></span>';
-  var tabAnim = document.getElementById('mtab-animacion');
-  tabAnim.style.display = curLesson.id === 'a1b2c3d4-e5f6-7890-abcd-ef1234567890' ? '' : 'none';
   switchModule('aprender');
 }
 
@@ -526,13 +522,11 @@ function switchModule(mod) {
   document.querySelectorAll('.module-panel').forEach(function(p) { p.classList.remove('active'); });
   var btn = document.getElementById('mtab-' + mod); btn.classList.add('active');
   if (mod === 'aprender') btn.style.background = 'linear-gradient(135deg,#1e7fd9,#1d9e75)';
-  else if (mod === 'ejercicios') btn.style.background = 'linear-gradient(135deg,#D85A30,#b34a20)';
-  else if (mod === 'animacion') btn.style.background = 'linear-gradient(135deg,#8B5CF6,#6d28d9)';
+  else btn.style.background = 'linear-gradient(135deg,#D85A30,#b34a20)';
   document.getElementById('mp-' + mod).classList.add('active');
   synth.cancel(); speaking = false;
   if (mod === 'aprender') renderAprender();
-  else if (mod === 'ejercicios') renderEjercicios();
-  else if (mod === 'animacion') renderAnimacion();
+  else renderEjercicios();
 }
 
 // ===== MODULE APRENDER =====
@@ -676,13 +670,33 @@ function goNextStep(idx) {
 
 function showStepsComplete() {
   var panel = document.getElementById('mp-aprender');
+  var fc = curLesson.flashcards || [];
+  var mx = curLesson.mini_exercices || [];
+  var fcHtml = '';
+  if (fc.length > 0) {
+    fcHtml += '<div style="margin-top:28px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--sky);margin-bottom:10px">🃏 Tarjetas de repaso</div><div class="flash-hint">💡 Haz clic en la tarjeta para ver la respuesta</div><div class="flash-grid">';
+    fc.forEach(function(card, i) {
+      fcHtml += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')"><div class="flash-inner"><div class="flash-front"><div class="flash-q">' + card.pregunta + '</div><div class="flash-hint-txt">Toca para ver ↩</div></div><div class="flash-back"><div class="flash-a">' + card.respuesta + '</div></div></div></div>';
+    });
+    fcHtml += '</div></div>';
+  }
+  var mxHtml = '';
+  if (mx.length > 0) {
+    mxHtml += '<div style="margin-top:24px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--yellow);margin-bottom:12px">🧩 Mini ejercicios</div>';
+    window._miniExData = mx;
+    mx.forEach(function(ex, i) {
+      mxHtml += '<div class="mini-ex"><div class="mini-ex-q">' + ex.pregunta + '</div><input type="text" class="mini-ex-input" id="mx' + i + '" placeholder="Tu respuesta..."><button class="btn-check" onclick="checkMiniIdx(' + i + ')">Comprobar ✓</button><div class="mini-result" id="mxr' + i + '"></div></div>';
+    });
+    mxHtml += '</div>';
+  }
   panel.innerHTML =
     '<div class="steps-complete">' +
       '<span class="steps-complete-icon">🏆</span>' +
       '<h3>¡Lección completada!</h3>' +
       '<p style="color:#7090b8;margin-bottom:24px">Has repasado todos los puntos de la lección.<br>Ahora practica con los ejercicios.</p>' +
       '<button class="btn-to-exercicios" onclick="switchModule(\'ejercicios\')">Ir a los ejercicios →</button>' +
-    '</div>';
+    '</div>' +
+    fcHtml + mxHtml;
 }
 
 function toggleMainAudio() {
@@ -822,11 +836,6 @@ function speakCorrIdx(i) {
   box.innerHTML = '📝 <strong>Corrección:</strong> ' + corr;
   box.classList.add('show');
   speak('La corrección es: ' + corr, null);
-}
-
-function renderAnimacion() {
-  var panel = document.getElementById('mp-animacion');
-  panel.innerHTML = '<div style="text-align:center;padding:60px 20px"><div style="font-size:64px;margin-bottom:20px">🎬</div><div style="font-family:Poppins,sans-serif;font-size:1.1em;font-weight:700;color:#fff;margin-bottom:10px">Animación interactiva</div><div style="color:#5070a0;font-size:.88em;margin-bottom:28px">La derivada — conceptos, gráficas y farmacocinética</div><a href="https://claude.ai/artifact/XtooVu7DvscqYrQ7EtNk6E" target="_blank" style="background:linear-gradient(135deg,#8B5CF6,#6d28d9);color:#fff;border-radius:50px;padding:14px 36px;font-weight:800;font-size:.95em;text-decoration:none;display:inline-block">▶ Abrir animación →</a></div>';
 }
 
 // ===== INIT =====
