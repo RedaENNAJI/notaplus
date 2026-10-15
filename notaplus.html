@@ -767,9 +767,9 @@ function buildMiniExHtml(mx) {
 function checkMiniQcm(i, chosen) {
   var data = (window._miniExData || [])[i];
   if (!data) return;
-  var correct = parseInt(data.correcta);
+  var correct = (data._newCorrect !== undefined) ? data._newCorrect : parseInt(data.correcta);
   var expl = data.explicacion || '';
-  var correctText = (data.opciones || [])[correct] || '';
+  var correctText = data._shuffled ? (data._shuffled[correct] || {}).text || '' : (data.opciones || [])[correct] || '';
   var opts = document.getElementById('mxopts' + i);
   if (opts) opts.querySelectorAll('.step-opt').forEach(function(b, j) {
     b.disabled = true;
