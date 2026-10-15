@@ -894,14 +894,14 @@ function _fcUpdateProgress() {
   if (stats) stats.innerHTML =
     '<span>❓ ' + (fc.length - rated) + ' por ver</span>' +
     '<span>🔄 ' + mid + ' en curso</span>' +
-    '<span>✅ ' + ok + ' maîtrisées</span>';
+    '<span>✅ ' + ok + ' dominadas</span>';
   // update badges
   fc.forEach(function(_, i) {
     var badge = document.getElementById('fcbadge' + i);
     if (!badge) return;
     var v = m[i] || 0;
     badge.className = 'flash-badge' + (v===1?' badge-no':v===2?' badge-mid':v===3?' badge-ok':'');
-    badge.textContent = v===1?'❓ À revoir':v===2?'🔄 En cours':v===3?'✅ Maîtrisé':'';
+    badge.textContent = v===1?'❓ Repasar':v===2?'🔄 En curso':v===3?'✅ Dominada':'';
   });
 }
 
@@ -916,16 +916,16 @@ function renderFlashcards() {
   var html = '<div style="font-family:Poppins,sans-serif;font-size:1.05em;font-weight:800;color:var(--sky);margin-bottom:12px">🃏 Tarjetas de repaso — ' + fc.length + ' tarjetas</div>';
   // Progress bar
   html += '<div class="flash-progress-wrap">' +
-    '<div class="flash-progress-label"><span>Progression</span><span id="fcProgressPct">0%</span></div>' +
+    '<div class="flash-progress-label"><span>Progreso</span><span id="fcProgressPct">0%</span></div>' +
     '<div class="flash-progress-bar"><div class="flash-progress-fill" id="fcProgressFill" style="width:0%"></div></div>' +
     '<div class="flash-progress-stars" id="fcProgressStats"></div>' +
   '</div>';
-  html += '<div class="flash-hint">💡 Retourne la carte, puis évalue ta réponse</div>';
+  html += '<div class="flash-hint">💡 Voltea la tarjeta y evalúa tu respuesta</div>';
   html += '<div class="flash-grid">';
   fc.forEach(function(card, i) {
     var v = m[i] || 0;
     var badgeClass = v===1?'flash-badge badge-no':v===2?'flash-badge badge-mid':v===3?'flash-badge badge-ok':'flash-badge';
-    var badgeTxt = v===1?'❓ À revoir':v===2?'🔄 En cours':v===3?'✅ Maîtrisé':'';
+    var badgeTxt = v===1?'❓ Repasar':v===2?'🔄 En curso':v===3?'✅ Dominada':'';
     html += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')">' +
       '<span class="' + badgeClass + '" id="fcbadge' + i + '">' + badgeTxt + '</span>' +
       '<div class="flash-inner">' +
@@ -936,9 +936,9 @@ function renderFlashcards() {
         '<div class="flash-back">' +
           '<div class="flash-a">' + card.respuesta + '</div>' +
           '<div class="flash-mastery-btns" onclick="event.stopPropagation()">' +
-            '<button class="fmb-no" onclick="setMastery(' + i + ',1)">❓ À revoir</button>' +
-            '<button class="fmb-mid" onclick="setMastery(' + i + ',2)">🔄 En cours</button>' +
-            '<button class="fmb-ok" onclick="setMastery(' + i + ',3)">✅ Je sais</button>' +
+            '<button class="fmb-no" onclick="setMastery(' + i + ',1)">❓ Repasar</button>' +
+            '<button class="fmb-mid" onclick="setMastery(' + i + ',2)">🔄 En curso</button>' +
+            '<button class="fmb-ok" onclick="setMastery(' + i + ',3)">✅ Lo sé</button>' +
           '</div>' +
         '</div>' +
       '</div>' +
