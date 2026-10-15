@@ -242,50 +242,10 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
 .jugar-mode-icon{font-size:34px;display:block;margin-bottom:8px}
 .jugar-mode-name{font-family:'Poppins',sans-serif;font-weight:800;font-size:.88em;margin-bottom:4px}
 .jugar-mode-desc{font-size:.72em;color:#5070a0;line-height:1.4}
-/* Game screen inside panel */
-.jugar-game{display:none}
-.jugar-game.active{display:block}
-.jugar-game-back{background:rgba(255,255,255,.06);border:1px solid var(--border);color:#a0c4e8;border-radius:8px;padding:7px 14px;cursor:pointer;font-size:.8em;font-weight:700;font-family:'Nunito',sans-serif;margin:12px 16px 0;display:inline-flex;align-items:center;gap:6px}
-/* --- Millonario game --- */
-.mill-wrap{padding:16px}
-.mill-bar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.mill-score{font-family:'Poppins',sans-serif;font-weight:800;font-size:.9em;color:var(--yellow)}
-.mill-timer{background:#1a2a4a;border-radius:50px;padding:4px 14px;font-weight:800;font-size:.88em;color:#fff;min-width:60px;text-align:center}
-.mill-timer.warn{color:#f5a623;animation:blink .5s infinite alternate}
-@keyframes blink{0%{opacity:1}100%{opacity:.4}}
-.mill-q{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:18px;font-size:.92em;line-height:1.5;margin-bottom:14px;font-weight:600}
-.mill-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.mill-opt{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;font-size:.82em;font-weight:700;text-align:center;font-family:'Nunito',sans-serif;color:#fff;transition:all .25s;display:flex;align-items:center;gap:8px}
-.mill-opt:hover:not(:disabled){background:rgba(30,127,217,.2);border-color:var(--blue)}
-.mill-opt.correct{background:rgba(29,158,117,.3);border-color:var(--teal);color:#5df5b0}
-.mill-opt.wrong{background:rgba(216,90,48,.3);border-color:var(--coral);color:#f5a080}
-.mill-opt:disabled{cursor:default}
-.mill-opt-letter{background:rgba(245,197,24,.15);border:1px solid rgba(245,197,24,.3);border-radius:6px;padding:2px 8px;font-size:.8em;color:var(--yellow);flex-shrink:0}
-.mill-feedback{text-align:center;padding:10px;font-weight:700;font-size:.9em;min-height:36px}
-.mill-next{background:linear-gradient(135deg,var(--blue),#1553a8);border:none;border-radius:50px;padding:10px 28px;color:#fff;font-weight:800;font-size:.9em;cursor:pointer;font-family:'Nunito',sans-serif;display:none}
-.mill-end{text-align:center;padding:30px 16px}
-.mill-end-score{font-family:'Poppins',sans-serif;font-size:2.5em;font-weight:900;color:var(--yellow)}
-/* --- Cartas game --- */
-.cartas-wrap{padding:16px}
-.cartas-bar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.cartas-prog{font-size:.82em;color:#5070a0}
-.cartas-timer{background:#1a2a4a;border-radius:50px;padding:4px 14px;font-weight:800;font-size:.88em;color:#fff;min-width:60px;text-align:center}
-.cartas-timer.warn{color:#f5a623;animation:blink .5s infinite alternate}
-.cartas-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
-.carta{background:var(--navy2);border:1px solid var(--border);border-radius:10px;aspect-ratio:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:900;font-size:1em;transition:all .3s;position:relative;overflow:hidden}
-.carta:not(.done):hover{border-color:var(--yellow);transform:scale(1.05)}
-.carta.done{cursor:default;background:rgba(29,158,117,.15);border-color:rgba(29,158,117,.4)}
-.carta.active-carta{border-color:var(--yellow);box-shadow:0 0 0 2px var(--yellow)}
-.carta-num{color:var(--yellow)}
-.cartas-question{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;min-height:70px;font-size:.9em;line-height:1.5;font-weight:600}
-.cartas-answer-reveal{background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.3);border-radius:10px;padding:14px;margin-bottom:12px;font-size:.88em;line-height:1.5;display:none}
-.cartas-answer-reveal.show{display:block}
-.cartas-btns{display:flex;gap:8px;flex-wrap:wrap}
-.btn-carta-known{background:linear-gradient(135deg,var(--teal),#0e7a58);border:none;border-radius:50px;padding:9px 20px;color:#fff;font-weight:800;font-size:.82em;cursor:pointer;font-family:'Nunito',sans-serif}
-.btn-carta-unknown{background:rgba(216,90,48,.15);border:1px solid rgba(216,90,48,.3);border-radius:50px;padding:9px 20px;color:#f0a080;font-weight:800;font-size:.82em;cursor:pointer;font-family:'Nunito',sans-serif}
-.cartas-reveal-btn{background:rgba(245,197,24,.12);border:1px solid rgba(245,197,24,.3);border-radius:50px;padding:9px 20px;color:var(--yellow);font-weight:800;font-size:.82em;cursor:pointer;font-family:'Nunito',sans-serif}
-.cartas-end{text-align:center;padding:30px 16px}
-.cartas-end-score{font-family:'Poppins',sans-serif;font-size:2.5em;font-weight:900;color:var(--yellow)}
+.jugar-iframe-wrap{display:none}
+.jugar-iframe-wrap.active{display:flex;flex-direction:column}
+.jugar-iframe-back{background:rgba(255,255,255,.06);border:1px solid var(--border);color:#a0c4e8;border-radius:8px;padding:7px 14px;cursor:pointer;font-size:.8em;font-weight:700;font-family:'Nunito',sans-serif;margin:10px 16px 0;display:inline-flex;align-items:center;gap:6px;align-self:flex-start}
+.jugar-iframe{border:none;width:100%;border-radius:0 0 10px 10px}
 
 /* ===== MOBILE RESPONSIVE ===== */
 @media(max-width:680px){
@@ -1112,48 +1072,6 @@ function speakCorrIdx(i) {
 }
 
 // ===== MODULE JUGAR =====
-function renderJugar() {
-  var panel = document.getElementById('mp-jugar');
-  // Collect cards: support both {f,b} and {pregunta,respuesta} formats
-  var fc = curLesson.flashcards || [];
-  var cards = fc.map(function(c) {
-    return { q: c.pregunta || c.f || '', a: c.respuesta || c.b || '' };
-  }).filter(function(c) { return c.q && c.a; });
-
-  if (cards.length < 3) {
-    panel.innerHTML = '<div style="text-align:center;padding:60px;color:#4060a0">🎮 El profesor aún no ha añadido suficientes tarjetas para jugar.</div>';
-    return;
-  }
-
-  panel.innerHTML =
-    '<div class="jugar-menu" id="jugar-menu">' +
-      '<div class="jugar-menu-title">🎮 Elige tu modo de juego</div>' +
-      '<div class="jugar-mode-grid">' +
-        '<button class="jugar-mode-btn" onclick="startJugarMillonario()">' +
-          '<span class="jugar-mode-icon">🏆</span>' +
-          '<div class="jugar-mode-name">¿Quién quiere ser millonario?</div>' +
-          '<div class="jugar-mode-desc">4 respuestas, 20s por pregunta, 10 preguntas</div>' +
-        '</button>' +
-        '<button class="jugar-mode-btn" onclick="startJugarCartas()">' +
-          '<span class="jugar-mode-icon">🃏</span>' +
-          '<div class="jugar-mode-name">Cartas mágicas</div>' +
-          '<div class="jugar-mode-desc">10 cartas a revelar, 30s por carta</div>' +
-        '</button>' +
-      '</div>' +
-      '<div style="font-size:.78em;color:#3a5070;text-align:center">' + cards.length + ' tarjetas disponibles en esta lección</div>' +
-    '</div>' +
-    '<div class="jugar-game" id="jugar-game-mill"><button class="jugar-game-back" onclick="jugarBack()">← Volver</button><div class="mill-wrap" id="mill-content"></div></div>' +
-    '<div class="jugar-game" id="jugar-game-cartas"><button class="jugar-game-back" onclick="jugarBack()">← Volver</button><div class="cartas-wrap" id="cartas-content"></div></div>';
-}
-
-function jugarBack() {
-  document.getElementById('jugar-menu').style.display = '';
-  document.getElementById('jugar-game-mill').classList.remove('active');
-  document.getElementById('jugar-game-cartas').classList.remove('active');
-  clearInterval(window._jugarTimer);
-}
-
-// --- helpers ---
 function jugarGetCards() {
   var fc = curLesson.flashcards || [];
   return fc.map(function(c) {
@@ -1161,224 +1079,196 @@ function jugarGetCards() {
   }).filter(function(c) { return c.q && c.a; });
 }
 
-function jugarShuffle(arr) {
-  var a = arr.slice();
-  for (var i = a.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var t = a[i]; a[i] = a[j]; a[j] = t;
+function renderJugar() {
+  var panel = document.getElementById('mp-jugar');
+  var cards = jugarGetCards();
+  if (cards.length < 3) {
+    panel.innerHTML = '<div style="text-align:center;padding:60px;color:#4060a0">🎮 El profesor aún no ha añadido suficientes tarjetas para jugar.</div>';
+    return;
   }
-  return a;
-}
-
-// ===== MILLONARIO =====
-function startJugarMillonario() {
-  document.getElementById('jugar-menu').style.display = 'none';
-  var g = document.getElementById('jugar-game-mill');
-  g.classList.add('active');
-  var all = jugarShuffle(jugarGetCards());
-  var qs = all.slice(0, Math.min(10, all.length));
-  window._mill = { qs: qs, idx: 0, score: 0, total: qs.length, answered: false };
-  millRender();
-}
-
-function millRender() {
-  var m = window._mill;
-  if (m.idx >= m.total) { millEnd(); return; }
-  var q = m.qs[m.idx];
-  var all = jugarGetCards();
-  // Build distractors: other cards' answers
-  var others = all.filter(function(c) { return c.a !== q.a; });
-  var shuffled = jugarShuffle(others).slice(0, 3).map(function(c) { return c.a; });
-  var opts = jugarShuffle([q.a].concat(shuffled));
-  var correctIdx = opts.indexOf(q.a);
-  m.curCorrect = correctIdx;
-  m.answered = false;
-  var letters = ['A', 'B', 'C', 'D'];
-  var optsHtml = '';
-  opts.forEach(function(o, i) {
-    optsHtml += '<button class="mill-opt" id="mill-opt-' + i + '" onclick="millAnswer(' + i + ')">' +
-      '<span class="mill-opt-letter">' + letters[i] + '</span>' + o + '</button>';
-  });
-  var el = document.getElementById('mill-content');
-  el.innerHTML =
-    '<div class="mill-bar">' +
-      '<span class="mill-score">⭐ ' + m.score + ' / ' + m.total + '</span>' +
-      '<span style="flex:1"></span>' +
-      '<span class="mill-timer" id="mill-timer">20</span>' +
+  panel.innerHTML =
+    '<div class="jugar-menu" id="jugar-menu">' +
+      '<div class="jugar-menu-title">🎮 Elige tu modo de juego</div>' +
+      '<div class="jugar-mode-grid">' +
+        '<button class="jugar-mode-btn" onclick="launchJugar(\'mill\')">' +
+          '<span class="jugar-mode-icon">🏆</span>' +
+          '<div class="jugar-mode-name">¿Quién quiere ser millonario?</div>' +
+          '<div class="jugar-mode-desc">6 respuestas, 20s por pregunta, comodines</div>' +
+        '</button>' +
+        '<button class="jugar-mode-btn" onclick="launchJugar(\'cartas\')">' +
+          '<span class="jugar-mode-icon">🃏</span>' +
+          '<div class="jugar-mode-name">Cartas mágicas</div>' +
+          '<div class="jugar-mode-desc">10 cartas a revelar, 30s por carta</div>' +
+        '</button>' +
+      '</div>' +
+      '<div style="font-size:.78em;color:#3a5070;text-align:center">' + cards.length + ' tarjetas disponibles en esta lección</div>' +
     '</div>' +
-    '<div style="font-size:.75em;color:#4060a0;margin-bottom:8px">Pregunta ' + (m.idx+1) + ' de ' + m.total + '</div>' +
-    '<div class="mill-q">' + q.q + '</div>' +
-    '<div class="mill-opts">' + optsHtml + '</div>' +
-    '<div class="mill-feedback" id="mill-feedback"></div>' +
-    '<button class="mill-next" id="mill-next" onclick="millNext()">Siguiente →</button>';
-  millStartTimer(20);
-}
-
-function millStartTimer(s) {
-  clearInterval(window._jugarTimer);
-  var el = document.getElementById('mill-timer');
-  if (!el) return;
-  el.textContent = s;
-  el.classList.remove('warn');
-  window._jugarTimer = setInterval(function() {
-    s--;
-    var el2 = document.getElementById('mill-timer');
-    if (!el2) { clearInterval(window._jugarTimer); return; }
-    el2.textContent = s;
-    if (s <= 5) el2.classList.add('warn');
-    if (s <= 0) { clearInterval(window._jugarTimer); if (!window._mill.answered) millTimeout(); }
-  }, 1000);
-}
-
-function millTimeout() {
-  var m = window._mill;
-  m.answered = true;
-  var fb = document.getElementById('mill-feedback');
-  if (fb) fb.innerHTML = '⏰ ¡Tiempo! La respuesta era: <strong>' + m.qs[m.idx].a + '</strong>';
-  var opt = document.getElementById('mill-opt-' + m.curCorrect);
-  if (opt) opt.classList.add('correct');
-  document.querySelectorAll('.mill-opt').forEach(function(b) { b.disabled = true; });
-  var nx = document.getElementById('mill-next');
-  if (nx) nx.style.display = 'inline-block';
-}
-
-function millAnswer(i) {
-  var m = window._mill;
-  if (m.answered) return;
-  m.answered = true;
-  clearInterval(window._jugarTimer);
-  var ok = i === m.curCorrect;
-  if (ok) m.score++;
-  document.querySelectorAll('.mill-opt').forEach(function(b, j) {
-    b.disabled = true;
-    if (j === m.curCorrect) b.classList.add('correct');
-    else if (j === i && !ok) b.classList.add('wrong');
-  });
-  var fb = document.getElementById('mill-feedback');
-  if (fb) fb.innerHTML = ok ? '✅ ¡Correcto!' : '❌ Incorrecto. Era: <strong>' + m.qs[m.idx].a + '</strong>';
-  var nx = document.getElementById('mill-next');
-  if (nx) nx.style.display = 'inline-block';
-}
-
-function millNext() {
-  window._mill.idx++;
-  millRender();
-}
-
-function millEnd() {
-  clearInterval(window._jugarTimer);
-  var m = window._mill;
-  var pct = Math.round(m.score / m.total * 100);
-  var emoji = pct >= 80 ? '🏆' : pct >= 50 ? '👍' : '💪';
-  document.getElementById('mill-content').innerHTML =
-    '<div class="mill-end">' +
-      '<div style="font-size:3em;margin-bottom:12px">' + emoji + '</div>' +
-      '<div class="mill-end-score">' + m.score + ' / ' + m.total + '</div>' +
-      '<div style="color:#5070a0;font-size:.88em;margin:8px 0 24px">' + pct + '% de respuestas correctas</div>' +
-      '<button class="mill-next" style="display:inline-block" onclick="startJugarMillonario()">🔄 Jugar de nuevo</button>' +
+    '<div class="jugar-iframe-wrap" id="jugar-iframe-wrap">' +
+      '<button class="jugar-iframe-back" onclick="jugarBack()">← Volver al menú</button>' +
+      '<iframe class="jugar-iframe" id="jugar-iframe" scrolling="no"></iframe>' +
     '</div>';
 }
 
-// ===== CARTAS =====
-function startJugarCartas() {
+function jugarBack() {
+  document.getElementById('jugar-menu').style.display = '';
+  document.getElementById('jugar-iframe-wrap').classList.remove('active');
+  var fr = document.getElementById('jugar-iframe');
+  fr.srcdoc = '';
+  fr.style.height = '0';
+}
+
+function launchJugar(mode) {
+  var cards = jugarGetCards();
+  // Shuffle cards
+  var shuffled = cards.slice().sort(function(){ return Math.random() - 0.5; });
+  var qs10 = shuffled.slice(0, Math.min(10, shuffled.length));
+
+  var srcdoc = mode === 'mill' ? buildMillSrcdoc(qs10, cards) : buildCartasSrcdoc(qs10);
+
   document.getElementById('jugar-menu').style.display = 'none';
-  var g = document.getElementById('jugar-game-cartas');
-  g.classList.add('active');
-  var all = jugarShuffle(jugarGetCards());
-  var qs = all.slice(0, Math.min(10, all.length));
-  window._cartas = { qs: qs, cur: -1, known: 0, total: qs.length, revealed: false };
-  cartasRender();
+  var wrap = document.getElementById('jugar-iframe-wrap');
+  wrap.classList.add('active');
+  var fr = document.getElementById('jugar-iframe');
+  fr.style.height = '520px';
+  fr.srcdoc = srcdoc;
 }
 
-function cartasRender() {
-  var m = window._cartas;
-  var gridHtml = '';
-  for (var i = 0; i < m.total; i++) {
-    var done = m.qs[i]._done;
-    var active = i === m.cur;
-    gridHtml += '<button class="carta' + (done ? ' done' : '') + (active ? ' active-carta' : '') +
-      '" id="carta-' + i + '" onclick="cartaSelect(' + i + ')">' +
-      (done ? '✓' : '<span class="carta-num">' + (i+1) + '</span>') + '</button>';
-  }
-  var known = m.qs.filter(function(q) { return q._done === 'known'; }).length;
-  var doneCount = m.qs.filter(function(q) { return q._done; }).length;
-  var qHtml = m.cur >= 0 ? m.qs[m.cur].q : '← Elige una carta para empezar';
-  var aHtml = m.cur >= 0 ? m.qs[m.cur].a : '';
-  var revealed = m.revealed;
-  var content = document.getElementById('cartas-content');
-  content.innerHTML =
-    '<div class="cartas-bar">' +
-      '<span class="cartas-prog">✅ ' + known + ' conocidas · ' + (m.total - doneCount) + ' restantes</span>' +
-      '<span style="flex:1"></span>' +
-      (m.cur >= 0 && !m.qs[m.cur]._done ? '<span class="cartas-timer' + (window._cartasTime <= 5 ? ' warn' : '') + '" id="cartas-timer">30</span>' : '') +
-    '</div>' +
-    '<div class="cartas-grid">' + gridHtml + '</div>' +
-    '<div class="cartas-question" id="cartas-q">' + qHtml + '</div>' +
-    (m.cur >= 0 && !m.qs[m.cur]._done ?
-      '<div class="cartas-answer-reveal' + (revealed ? ' show' : '') + '" id="cartas-ans">' + aHtml + '</div>' +
-      '<div class="cartas-btns">' +
-        (!revealed ? '<button class="cartas-reveal-btn" onclick="cartasReveal()">👁 Ver respuesta</button>' :
-          '<button class="btn-carta-known" onclick="cartasDone(true)">✅ Lo sabía</button>' +
-          '<button class="btn-carta-unknown" onclick="cartasDone(false)">❌ No lo sabía</button>') +
-      '</div>' : '') +
-    (doneCount >= m.total ?
-      '<div class="cartas-end">' +
-        '<div style="font-size:3em;margin-bottom:12px">' + (known/m.total >= 0.8 ? '🏆' : '💪') + '</div>' +
-        '<div class="cartas-end-score">' + known + ' / ' + m.total + '</div>' +
-        '<div style="color:#5070a0;font-size:.88em;margin:8px 0 24px">tarjetas conocidas</div>' +
-        '<button class="cartas-reveal-btn" onclick="startJugarCartas()">🔄 Jugar de nuevo</button>' +
-      '</div>' : '');
-  // Restart timer if new card selected and not done
-  if (m.cur >= 0 && !m.qs[m.cur]._done && !revealed) {
-    cartasStartTimer();
-  }
+// ===== MILLONARIO srcdoc =====
+function buildMillSrcdoc(qs, allCards) {
+  // Build questions: q.q as question, generate 6 opts (correct + 5 distractors from other cards)
+  var pool = JSON.parse(JSON.stringify(qs));
+  pool.forEach(function(item) {
+    var others = allCards.filter(function(c) { return c.a !== item.a; });
+    var shuffOthers = others.sort(function(){ return Math.random()-.5; }).slice(0,5).map(function(c){ return c.a; });
+    var opts6 = [item.a].concat(shuffOthers).sort(function(){ return Math.random()-.5; });
+    item.opts = opts6;
+    item.ans = opts6.indexOf(item.a);
+  });
+
+  return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;800;900&display=swap">' +
+    '<style>' +
+    ':root{--bg-deep:#0a1a6e;--bg-mid:#1030b0;--ray-color:#1840cc;--border-green:#00e050;--border-pink:#e0006a;--btn-bg:#0a1a6e;--btn-border:#f5e600;--btn-label:#f5e600;--btn-text:#f5e600;--btn-hover:#1a3aaa;--btn-correct:#00c040;--btn-wrong:#e02020;--btn-fade:#334488;--power-bg:#e0006a;--power-text:#fff;--timer-bar:#f5e600;--score-color:#fff;--hud-bg:rgba(0,0,0,0.5);--question-color:#fff;--counter-color:#ccd5ff;color-scheme:dark}' +
+    '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;background:var(--bg-deep)}' +
+    'body{display:flex;align-items:center;justify-content:center;font-family:\'Nunito\',sans-serif;padding:8px;min-height:100%}' +
+    '.board{width:100%;max-width:680px;border:6px solid var(--border-green);outline:4px solid var(--border-pink);border-radius:12px;overflow:hidden;position:relative;background:var(--bg-deep);box-shadow:0 0 40px rgba(0,224,80,0.3),0 0 80px rgba(224,0,106,0.15)}' +
+    '.rays{position:absolute;inset:0;z-index:0;background:conic-gradient(from 0deg at 50% 45%,var(--bg-mid) 0deg,var(--ray-color) 15deg,var(--bg-mid) 30deg,var(--ray-color) 45deg,var(--bg-mid) 60deg,var(--ray-color) 75deg,var(--bg-mid) 90deg,var(--ray-color) 105deg,var(--bg-mid) 120deg,var(--ray-color) 135deg,var(--bg-mid) 150deg,var(--ray-color) 165deg,var(--bg-mid) 180deg,var(--ray-color) 195deg,var(--bg-mid) 210deg,var(--ray-color) 225deg,var(--bg-mid) 240deg,var(--ray-color) 255deg,var(--bg-mid) 270deg,var(--ray-color) 285deg,var(--bg-mid) 300deg,var(--ray-color) 315deg,var(--bg-mid) 330deg,var(--ray-color) 345deg,var(--bg-mid) 360deg)}' +
+    '.hud{position:relative;z-index:2;display:flex;align-items:center;gap:8px;background:var(--hud-bg);padding:8px 14px}' +
+    '.timer-wrap{flex:1;display:flex;align-items:center;gap:8px}.timer-num{font-family:\'Bangers\',cursive;font-size:1.6rem;color:var(--timer-bar);min-width:2.2ch;font-variant-numeric:tabular-nums}' +
+    '.timer-track{flex:1;height:10px;background:rgba(255,255,255,0.15);border-radius:20px;overflow:hidden}.timer-fill{height:100%;border-radius:20px;background:var(--timer-bar);transition:width 0.9s linear,background 0.3s}' +
+    '.score-box{font-family:\'Bangers\',cursive;font-size:1.3rem;color:var(--score-color);display:flex;align-items:center;gap:4px}.score-box span{font-size:1rem;color:#aabfff}' +
+    '.question-wrap{position:relative;z-index:2;padding:24px 20px 14px;text-align:center}' +
+    '.question-text{font-family:\'Bangers\',cursive;font-size:clamp(1.2rem,4vw,1.8rem);color:var(--question-color);text-wrap:balance;text-shadow:2px 3px 0 rgba(0,0,0,0.5);line-height:1.2}' +
+    '.answers{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px 16px}' +
+    '@media(max-width:440px){.answers{grid-template-columns:repeat(2,1fr)}}' +
+    '.btn-ans{border:3px solid var(--btn-border);border-radius:8px;background:var(--btn-bg);color:var(--btn-text);font-family:\'Nunito\',sans-serif;font-weight:800;font-size:clamp(0.7rem,2vw,0.88rem);padding:10px 6px 8px;cursor:pointer;transition:background 0.15s,transform 0.1s,opacity 0.3s;text-align:center;line-height:1.2;display:flex;flex-direction:column;align-items:center;gap:3px;min-height:60px;justify-content:center}' +
+    '.btn-ans .lbl{font-size:0.65em;letter-spacing:.08em;opacity:0.8;display:block}.btn-ans:hover:not(:disabled){background:var(--btn-hover);transform:scale(1.03)}.btn-ans:disabled{cursor:default}' +
+    '.btn-ans.correct{background:var(--btn-correct);border-color:#00ff60;color:#fff}.btn-ans.wrong{background:var(--btn-wrong);border-color:#ff4040;color:#fff}.btn-ans.faded{opacity:0.25;border-color:var(--btn-fade);color:#667}' +
+    '.powerups{position:relative;z-index:2;display:flex;justify-content:center;gap:10px;padding:0 16px 14px;flex-wrap:wrap}' +
+    '.btn-power{background:var(--power-bg);color:var(--power-text);border:none;border-radius:20px;font-family:\'Nunito\',sans-serif;font-weight:900;font-size:0.72rem;padding:5px 14px;cursor:pointer;letter-spacing:.04em;transition:opacity 0.2s,transform 0.1s}' +
+    '.btn-power:hover:not(:disabled){transform:scale(1.06)}.btn-power:disabled{opacity:0.3;cursor:default}.btn-power.used{opacity:0.3}' +
+    '.bottombar{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;background:var(--hud-bg);padding:8px 16px}' +
+    '.counter{font-family:\'Bangers\',cursive;font-size:1.2rem;color:var(--counter-color);letter-spacing:.05em}' +
+    '.overlay{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,10,60,0.93);text-align:center;gap:18px;padding:24px}' +
+    '.overlay h2{font-family:\'Bangers\',cursive;font-size:clamp(2rem,7vw,3rem);color:var(--btn-label);text-shadow:2px 3px 0 rgba(0,0,0,0.6)}' +
+    '.overlay p{color:#ccd5ff;font-size:1rem;font-weight:700;max-width:360px}.overlay .big-score{font-family:\'Bangers\',cursive;font-size:clamp(3rem,12vw,5rem);color:#fff}' +
+    '.btn-start{background:var(--border-green);color:#003020;border:none;border-radius:30px;font-family:\'Nunito\',sans-serif;font-weight:900;font-size:1.1rem;padding:12px 32px;cursor:pointer;transition:transform 0.15s}.btn-start:hover{transform:scale(1.06)}' +
+    '.feedback{position:relative;z-index:2;min-height:28px;text-align:center;font-family:\'Nunito\',sans-serif;font-weight:900;font-size:0.85rem;color:#adf0c0;padding:2px 16px 6px}' +
+    '</style>' +
+    '<div class="board" id="board"><div class="rays"></div>' +
+    '<div class="overlay" id="introOverlay"><h2>🧠 ' + (curLesson.titre||'Quiz') + '</h2>' +
+    '<p>10 preguntas · Elige la respuesta correcta</p>' +
+    '<p style="color:#f5e600;font-size:.85rem">Tienes 20 segundos por pregunta.<br>Usa los comodines con sabiduría.</p>' +
+    '<button class="btn-start" onclick="startGame()">¡Jugar!</button></div>' +
+    '<div class="overlay" id="endOverlay" hidden><h2 id="endTitle">¡Fin!</h2><div class="big-score" id="endScore">0</div><p id="endMsg"></p><button class="btn-start" onclick="startGame()">🔁 Otra vez</button></div>' +
+    '<div class="hud"><div class="timer-wrap"><div class="timer-num" id="timerNum">20</div><div class="timer-track"><div class="timer-fill" id="timerFill" style="width:100%"></div></div></div><div class="score-box"><span>✓</span><span id="scoreDisplay">0</span></div></div>' +
+    '<div class="question-wrap"><div class="question-text" id="questionText">&nbsp;</div></div>' +
+    '<div class="answers" id="answersGrid"></div>' +
+    '<div class="feedback" id="feedback"></div>' +
+    '<div class="powerups"><button class="btn-power" id="pwrDouble" onclick="useDouble()">Puntuación ×2</button><button class="btn-power" id="pwrFifty" onclick="useFifty()">50:50</button><button class="btn-power" id="pwrTime" onclick="useTime()">Tiempo extra</button></div>' +
+    '<div class="bottombar"><div class="counter" id="counterText">– de 10</div></div></div>' +
+    '<script>' +
+    'const LABELS=["A","B","C","D","E","F"];const TIME_PER_Q=20;' +
+    'const ALL_QUESTIONS=' + JSON.stringify(pool) + ';' +
+    'function shuffle(arr){return[...arr].sort(()=>Math.random()-0.5)}' +
+    'let questions,qIndex,score,timerVal,timerInt,answered,doubleActive=false,fiftyUsed=false,doubleUsed=false,timeUsed=false;' +
+    'function startGame(){questions=shuffle(ALL_QUESTIONS).slice(0,10);qIndex=0;score=0;answered=false;doubleActive=false;fiftyUsed=false;doubleUsed=false;timeUsed=false;document.getElementById("introOverlay").hidden=true;document.getElementById("endOverlay").hidden=true;document.getElementById("scoreDisplay").textContent="0";["pwrDouble","pwrFifty","pwrTime"].forEach(function(id){var b=document.getElementById(id);b.classList.remove("used");b.disabled=false});showQuestion()}' +
+    'function showQuestion(){clearInterval(timerInt);answered=false;doubleActive=false;var q=questions[qIndex];document.getElementById("questionText").textContent=q.q;document.getElementById("counterText").textContent=(qIndex+1)+" de 10";document.getElementById("feedback").textContent="";var grid=document.getElementById("answersGrid");grid.innerHTML="";q.opts.forEach(function(opt,i){var btn=document.createElement("button");btn.className="btn-ans";btn.innerHTML="<span class=\'lbl\'>"+LABELS[i]+"</span>"+opt;btn.onclick=function(){pickAnswer(i)};grid.appendChild(btn)});startTimer(TIME_PER_Q)}' +
+    'function startTimer(secs){timerVal=secs;updateTimer();timerInt=setInterval(function(){timerVal--;updateTimer();if(timerVal<=0){clearInterval(timerInt);timeUp()}},1000)}' +
+    'function updateTimer(){var el=document.getElementById("timerNum");var fill=document.getElementById("timerFill");el.textContent=timerVal;var pct=Math.max(0,timerVal/TIME_PER_Q*100);fill.style.width=pct+"%";fill.style.background=timerVal<=5?"#ff4040":timerVal<=10?"#ff9900":"var(--timer-bar)"}' +
+    'function pickAnswer(chosen){if(answered)return;answered=true;clearInterval(timerInt);var q=questions[qIndex];var btns=document.getElementById("answersGrid").querySelectorAll(".btn-ans");btns.forEach(function(b){b.disabled=true});var correct=chosen===q.ans;btns[chosen].classList.add(correct?"correct":"wrong");if(!correct)btns[q.ans].classList.add("correct");var pts=correct?(doubleActive?200:100):0;score+=pts;document.getElementById("scoreDisplay").textContent=score;var fb=document.getElementById("feedback");if(correct){fb.textContent=doubleActive?"✅ ¡Correcto! +200 puntos":"✅ ¡Correcto! +100 puntos";fb.style.color="#80ffb0"}else{fb.textContent="❌ Era: "+q.opts[q.ans];fb.style.color="#ff9090"}setTimeout(nextQuestion,1600)}' +
+    'function timeUp(){if(answered)return;answered=true;var q=questions[qIndex];var btns=document.getElementById("answersGrid").querySelectorAll(".btn-ans");btns.forEach(function(b){b.disabled=true});btns[q.ans].classList.add("correct");document.getElementById("feedback").textContent="⏰ ¡Tiempo! Era: "+q.opts[q.ans];document.getElementById("feedback").style.color="#ffcc44";setTimeout(nextQuestion,1600)}' +
+    'function nextQuestion(){qIndex++;if(qIndex>=questions.length){showEnd();return}showQuestion()}' +
+    'function showEnd(){var ov=document.getElementById("endOverlay");ov.hidden=false;document.getElementById("endScore").textContent=score;var pct=score/1000;var title,msg;if(pct>=0.9){title="🏆 ¡Perfecto!";msg="¡Dominas la lección! ¡Eres una estrella! 🌟"}else if(pct>=0.7){title="🎉 ¡Muy bien!";msg="Excelente trabajo, sigue repasando."}else if(pct>=0.5){title="👍 ¡Bien!";msg="Buen intento. Repasa con las tarjetas y vuelve."}else{title="💪 ¡Inténtalo!";msg="Practica con Memorizar y vuelve a intentarlo."}document.getElementById("endTitle").textContent=title;document.getElementById("endMsg").textContent=msg}' +
+    'function useDouble(){if(doubleUsed||answered)return;doubleUsed=true;doubleActive=true;document.getElementById("pwrDouble").classList.add("used");document.getElementById("pwrDouble").disabled=true;document.getElementById("feedback").textContent="⚡ ¡Puntuación doble activada!";document.getElementById("feedback").style.color="#ffe050"}' +
+    'function useFifty(){if(fiftyUsed||answered)return;fiftyUsed=true;document.getElementById("pwrFifty").classList.add("used");document.getElementById("pwrFifty").disabled=true;var q=questions[qIndex];var btns=document.getElementById("answersGrid").querySelectorAll(".btn-ans");var wrongIdxs=[];btns.forEach(function(b,i){if(i!==q.ans)wrongIdxs.push(i)});wrongIdxs=shuffle(wrongIdxs).slice(0,Math.floor(wrongIdxs.length/2));wrongIdxs.forEach(function(i){btns[i].classList.add("faded");btns[i].disabled=true});document.getElementById("feedback").textContent="🎯 50:50 — eliminadas la mitad de las opciones incorrectas";document.getElementById("feedback").style.color="#aaddff"}' +
+    'function useTime(){if(timeUsed||answered)return;timeUsed=true;document.getElementById("pwrTime").classList.add("used");document.getElementById("pwrTime").disabled=true;clearInterval(timerInt);timerVal=Math.min(timerVal+10,TIME_PER_Q+10);document.getElementById("feedback").textContent="⏱ +10 segundos extra";document.getElementById("feedback").style.color="#aaffcc";startTimer(timerVal)}' +
+    '<\/script></html>';
 }
 
-function cartaSelect(i) {
-  var m = window._cartas;
-  if (m.qs[i]._done) return;
-  clearInterval(window._jugarTimer);
-  m.cur = i;
-  m.revealed = false;
-  window._cartasTime = 30;
-  cartasRender();
-}
+// ===== CARTAS srcdoc =====
+function buildCartasSrcdoc(qs) {
+  var pool = JSON.parse(JSON.stringify(qs));
+  pool.forEach(function(item) {
+    // 4 opts: correct + 3 distractors from other cards in the same pool
+    var others = pool.filter(function(c){ return c.a !== item.a; });
+    var dist = others.sort(function(){ return Math.random()-.5; }).slice(0,3).map(function(c){ return c.a; });
+    var opts = [item.a].concat(dist).sort(function(){ return Math.random()-.5; });
+    item.opts = opts;
+    item.ans = opts.indexOf(item.a);
+  });
 
-function cartasReveal() {
-  window._cartas.revealed = true;
-  clearInterval(window._jugarTimer);
-  var ans = document.getElementById('cartas-ans');
-  var btns = document.querySelector('.cartas-btns');
-  if (ans) ans.classList.add('show');
-  if (btns) btns.innerHTML =
-    '<button class="btn-carta-known" onclick="cartasDone(true)">✅ Lo sabía</button>' +
-    '<button class="btn-carta-unknown" onclick="cartasDone(false)">❌ No lo sabía</button>';
-}
-
-function cartasDone(known) {
-  var m = window._cartas;
-  if (m.cur < 0) return;
-  m.qs[m.cur]._done = known ? 'known' : 'unknown';
-  m.cur = -1;
-  m.revealed = false;
-  clearInterval(window._jugarTimer);
-  cartasRender();
-}
-
-function cartasStartTimer() {
-  clearInterval(window._jugarTimer);
-  window._cartasTime = 30;
-  window._jugarTimer = setInterval(function() {
-    window._cartasTime--;
-    var el = document.getElementById('cartas-timer');
-    if (!el) { clearInterval(window._jugarTimer); return; }
-    el.textContent = window._cartasTime;
-    if (window._cartasTime <= 5) el.classList.add('warn');
-    if (window._cartasTime <= 0) {
-      clearInterval(window._jugarTimer);
-      cartasReveal();
-    }
-  }, 1000);
+  return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;800;900&display=swap">' +
+    '<style>' +
+    ':root{--bg:#5bb8e8;--bg2:#3a9fd4;--card-closed:#2a6fa8;--card-border:#1a4f7a;--card-open-bg:#a0f0d8;--card-open-border:#00c888;--card-num:#fff;--card-q:#006644;--hud-bg:rgba(20,80,130,0.7);--hud-text:#fff;--score-color:#fff;--timer-color:#fff;--ornament:rgba(255,255,255,0.12);color-scheme:light}' +
+    '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;background:var(--bg)}' +
+    'body{display:flex;align-items:center;justify-content:center;font-family:\'Nunito\',sans-serif;padding:8px;min-height:100%}' +
+    '.board{width:100%;max-width:680px;background:var(--bg2);border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.25)}' +
+    '.hud{display:flex;align-items:center;justify-content:space-between;background:var(--hud-bg);padding:10px 16px;gap:12px}' +
+    '.hud-timer{font-family:\'Bangers\',cursive;font-size:1.8rem;color:var(--timer-color);min-width:3ch;font-variant-numeric:tabular-nums}' +
+    '.hud-title{font-family:\'Nunito\',sans-serif;font-size:0.9rem;font-weight:700;color:rgba(255,255,255,0.75);text-align:center;flex:1;letter-spacing:.03em}' +
+    '.hud-score{font-family:\'Bangers\',cursive;font-size:1.4rem;color:var(--score-color);display:flex;align-items:center;gap:4px}.hud-score span{font-size:0.9rem;color:rgba(255,255,255,0.65)}' +
+    '.instr{text-align:center;font-size:0.78rem;font-weight:800;color:rgba(255,255,255,0.8);padding:6px 16px 4px;letter-spacing:.05em;text-transform:uppercase}' +
+    '.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:10px 12px 14px}' +
+    '.card{aspect-ratio:1/1;border-radius:10px;border:3px solid var(--card-border);background:var(--card-closed);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;transition:transform 0.15s,background 0.2s;box-shadow:inset 0 -3px 0 rgba(0,0,0,0.2)}' +
+    '.card:hover:not(.revealed):not(.disabled){transform:scale(1.06);background:#3a80c0}.card.revealed{background:var(--card-open-bg);border-color:var(--card-open-border);cursor:default}.card.active-q{background:var(--card-open-bg);border-color:var(--card-open-border);cursor:default}.card.correct{background:#60f090;border-color:#00c840}.card.wrong{background:#f06060;border-color:#c02020}.card.disabled{opacity:0.45;cursor:default}' +
+    '.card::before,.card::after{content:"❧";position:absolute;font-size:1rem;color:var(--ornament);pointer-events:none}.card::before{top:2px;left:4px}.card::after{bottom:2px;right:4px;transform:rotate(180deg)}' +
+    '.card-num{font-family:\'Bangers\',cursive;font-size:clamp(1.2rem,4vw,2rem);color:var(--card-num);text-shadow:1px 2px 0 rgba(0,0,0,0.4);z-index:1}' +
+    '.card-q-text{font-family:\'Nunito\',sans-serif;font-weight:900;font-size:clamp(0.5rem,1.5vw,0.75rem);color:var(--card-q);text-align:center;padding:4px;line-height:1.2;z-index:1;display:none}' +
+    '.card.active-q .card-num{display:none}.card.active-q .card-q-text{display:block}.card.active-q::before,.card.active-q::after,.card.revealed::before,.card.revealed::after{display:none}.card.revealed .card-num{display:none}.card.revealed .card-q-text{display:block;color:#004433}.card.correct .card-q-text,.card.wrong .card-q-text{color:#fff}' +
+    '.answer-panel{background:rgba(0,0,0,0.18);margin:0 12px 12px;border-radius:10px;padding:10px 14px;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}' +
+    '.ap-question{font-family:\'Bangers\',cursive;font-size:clamp(1rem,3.5vw,1.4rem);color:#fff;text-align:center;text-shadow:1px 2px 0 rgba(0,0,0,0.4);text-wrap:balance}' +
+    '.ap-choices{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}' +
+    '.btn-choice{background:#1a5a90;color:#fff;border:2px solid #4a9adc;border-radius:20px;font-family:\'Nunito\',sans-serif;font-weight:800;font-size:0.8rem;padding:5px 14px;cursor:pointer;transition:background 0.15s,transform 0.1s}.btn-choice:hover:not(:disabled){background:#2a7ac0;transform:scale(1.05)}.btn-choice:disabled{cursor:default}.btn-choice.correct{background:#00b050;border-color:#00e060}.btn-choice.wrong{background:#c02020;border-color:#ff4040}' +
+    '.ap-wait{color:rgba(255,255,255,0.6);font-size:0.82rem;font-weight:700;letter-spacing:.04em}' +
+    '.bottombar{display:flex;align-items:center;justify-content:space-between;padding:8px 16px 10px;background:rgba(0,0,0,0.15)}' +
+    '.bb-counter{font-family:\'Bangers\',cursive;font-size:1.1rem;color:rgba(255,255,255,0.7)}.bb-streak{font-size:0.78rem;font-weight:900;color:#ffe040;letter-spacing:.04em}' +
+    '.overlay{position:fixed;inset:0;z-index:30;background:rgba(10,60,120,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:24px}' +
+    '.overlay h2{font-family:\'Bangers\',cursive;font-size:clamp(2rem,7vw,3.2rem);color:#ffe040;text-shadow:2px 3px 0 rgba(0,0,0,0.5)}.overlay .big-score{font-family:\'Bangers\',cursive;font-size:clamp(3.5rem,12vw,5.5rem);color:#fff}.overlay p{color:#c0d8ff;font-weight:700;font-size:1rem;max-width:340px}' +
+    '.btn-go{background:#00d060;color:#003020;border:none;border-radius:30px;font-family:\'Nunito\',sans-serif;font-weight:900;font-size:1.1rem;padding:12px 36px;cursor:pointer;transition:transform 0.15s}.btn-go:hover{transform:scale(1.06)}' +
+    '</style>' +
+    '<div class="overlay" id="introOv"><h2>🃏 ' + (curLesson.titre||'Cartas') + '</h2><p>Toca una carta para revelar la pregunta.<br>Elige la respuesta correcta.</p><p style="color:#ffe040;font-size:.85rem">10 cartas · 30 segundos por carta</p><button class="btn-go" onclick="startGame()">¡Empezar!</button></div>' +
+    '<div class="overlay" id="endOv" hidden><h2 id="endTitle">¡Fin!</h2><div class="big-score" id="endScore">0/10</div><p id="endMsg"></p><button class="btn-go" onclick="startGame()">🔁 Otra partida</button></div>' +
+    '<div class="board"><div class="hud"><div class="hud-timer" id="timerNum">30</div><div class="hud-title" id="hudTitle">Toca una para abrirla</div><div class="hud-score"><span>✓</span><span id="scoreDisp">0</span></div></div>' +
+    '<div class="instr" id="instrBar">Toca una carta para empezar</div>' +
+    '<div class="grid" id="grid"></div>' +
+    '<div class="answer-panel" id="ansPanel"><div class="ap-wait" id="apWait">↑ Abre una carta para responder</div><div class="ap-question" id="apQ" hidden></div><div class="ap-choices" id="apChoices" hidden></div></div>' +
+    '<div class="bottombar"><div class="bb-counter" id="bbCounter">0 / 10</div><div class="bb-streak" id="bbStreak"></div></div></div>' +
+    '<script>' +
+    'const POOL=' + JSON.stringify(pool) + ';' +
+    'function shuffle(a){return[...a].sort(()=>Math.random()-.5)}' +
+    'let questions,score,correct,timerVal,timerInt,activeIdx=null,answered=false,streak=0;' +
+    'function startGame(){questions=shuffle(POOL).slice(0,10);score=0;correct=0;streak=0;activeIdx=null;answered=false;document.getElementById("introOv").hidden=true;document.getElementById("endOv").hidden=true;document.getElementById("scoreDisp").textContent="0";document.getElementById("bbCounter").textContent="0 / 10";document.getElementById("bbStreak").textContent="";document.getElementById("hudTitle").textContent="Toca una para abrirla";document.getElementById("instrBar").textContent="Toca una carta para empezar";clearInterval(timerInt);document.getElementById("timerNum").textContent="30";resetPanel();buildGrid()}' +
+    'function buildGrid(){var grid=document.getElementById("grid");grid.innerHTML="";questions.forEach(function(q,i){var card=document.createElement("div");card.className="card";card.id="card"+i;card.innerHTML="<div class=\'card-num\'>"+(i+1)+"</div><div class=\'card-q-text\'>"+q.q+"</div>";card.onclick=function(){openCard(i)};grid.appendChild(card)})}' +
+    'function openCard(i){if(answered&&activeIdx!==null)return;var c=document.getElementById("card"+i);if(c.classList.contains("revealed")||c.classList.contains("correct")||c.classList.contains("wrong"))return;if(activeIdx!==null&&activeIdx!==i){document.getElementById("card"+activeIdx).classList.remove("active-q")}activeIdx=i;answered=false;c.classList.add("active-q");document.getElementById("hudTitle").textContent="Elige la respuesta";document.getElementById("instrBar").textContent="↓ Toca tu respuesta";showPanel(i);startTimer()}' +
+    'function showPanel(i){var q=questions[i];document.getElementById("apWait").hidden=true;var apQ=document.getElementById("apQ");apQ.hidden=false;apQ.textContent=q.q;var apC=document.getElementById("apChoices");apC.hidden=false;apC.innerHTML="";q.opts.forEach(function(opt,oi){var btn=document.createElement("button");btn.className="btn-choice";btn.textContent=opt;btn.onclick=function(){pick(i,oi)};apC.appendChild(btn)})}' +
+    'function resetPanel(){document.getElementById("apWait").hidden=false;document.getElementById("apQ").hidden=true;document.getElementById("apChoices").hidden=true}' +
+    'function startTimer(){clearInterval(timerInt);timerVal=30;document.getElementById("timerNum").textContent=timerVal;timerInt=setInterval(function(){timerVal--;document.getElementById("timerNum").textContent=timerVal;if(timerVal<=0){clearInterval(timerInt);timeUp()}},1000)}' +
+    'function pick(cardIdx,chosen){if(answered)return;answered=true;clearInterval(timerInt);var q=questions[cardIdx];var isOk=chosen===q.ans;var card=document.getElementById("card"+cardIdx);card.classList.remove("active-q");card.classList.add(isOk?"correct":"wrong");card.classList.add("revealed");var btns=document.getElementById("apChoices").querySelectorAll(".btn-choice");btns.forEach(function(b,bi){b.disabled=true;if(bi===q.ans)b.classList.add("correct")});if(!isOk)btns[chosen].classList.add("wrong");if(isOk){correct++;score+=100;streak++}else{streak=0}document.getElementById("scoreDisp").textContent=score;document.getElementById("bbCounter").textContent=correct+" / "+questions.length;document.getElementById("bbStreak").textContent=streak>=2?"🔥 Racha ×"+streak:"";var remaining=questions.filter(function(_,i){var c=document.getElementById("card"+i);return!c.classList.contains("correct")&&!c.classList.contains("wrong")});if(remaining.length===0){setTimeout(showEnd,1200)}else{document.getElementById("hudTitle").textContent="Toca otra carta";document.getElementById("instrBar").textContent=remaining.length+" cartas restantes";setTimeout(resetPanel,800);activeIdx=null}}' +
+    'function timeUp(){if(answered)return;answered=true;var card=document.getElementById("card"+activeIdx);card.classList.remove("active-q");card.classList.add("wrong");card.classList.add("revealed");var q=questions[activeIdx];var btns=document.getElementById("apChoices").querySelectorAll(".btn-choice");btns.forEach(function(b,bi){b.disabled=true;if(bi===q.ans)b.classList.add("correct")});streak=0;document.getElementById("bbStreak").textContent="";var remaining=questions.filter(function(_,i){var c=document.getElementById("card"+i);return!c.classList.contains("correct")&&!c.classList.contains("wrong")});if(remaining.length===0){setTimeout(showEnd,1200);return}document.getElementById("hudTitle").textContent="⏰ Tiempo — siguiente carta";setTimeout(resetPanel,900);activeIdx=null}' +
+    'function showEnd(){document.getElementById("endOv").hidden=false;document.getElementById("endScore").textContent=correct+"/10";var pct=correct/10;var title,msg;if(pct>=0.9){title="🏆 ¡Perfecto!";msg="¡Dominas esta lección! 🌟"}else if(pct>=0.7){title="🎉 ¡Muy bien!";msg="¡Excelente! Sigue practicando."}else if(pct>=0.5){title="👍 ¡Bien!";msg="Buen trabajo. Repasa y vuelve."}else{title="💪 ¡Sigue!";msg="Practica con Memorizar y vuelve a intentarlo."}document.getElementById("endTitle").textContent=title;document.getElementById("endMsg").textContent=msg}' +
+    '<\/script></html>';
 }
 
 // ===== INIT =====
