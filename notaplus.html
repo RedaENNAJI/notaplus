@@ -116,15 +116,33 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
 /* Flashcards */
 .flash-hint{background:rgba(29,158,117,.07);border:1px solid rgba(29,158,117,.15);border-radius:10px;padding:10px 14px;font-size:.8em;color:#5090a0;margin-bottom:16px;text-align:center}
 .flash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:13px;margin-bottom:24px}
-.flash-card{height:155px;cursor:pointer;perspective:1000px}
+.flash-card{height:200px;cursor:pointer;perspective:1000px}
 .flash-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
 .flash-card.flipped .flash-inner{transform:rotateY(180deg)}
 .flash-front,.flash-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:13px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .flash-front{background:linear-gradient(135deg,rgba(30,127,217,.18),rgba(29,158,117,.08));border:1px solid rgba(255,255,255,.1)}
 .flash-q{font-weight:700;font-size:.88em;color:var(--sky);line-height:1.4}
 .flash-hint-txt{font-size:.62em;color:rgba(255,255,255,.3);margin-top:8px}
-.flash-back{background:linear-gradient(135deg,rgba(29,158,117,.2),rgba(30,127,217,.12));border:1px solid rgba(29,158,117,.35);transform:rotateY(180deg)}
-.flash-a{font-size:.83em;line-height:1.55;color:#c0f0e0;font-weight:600}
+.flash-back{background:linear-gradient(135deg,rgba(29,158,117,.2),rgba(30,127,217,.12));border:1px solid rgba(29,158,117,.35);transform:rotateY(180deg);justify-content:flex-start;padding-top:14px}
+.flash-a{font-size:.83em;line-height:1.55;color:#c0f0e0;font-weight:600;margin-bottom:10px}
+.flash-mastery-btns{display:flex;gap:6px;margin-top:auto;width:100%}
+.flash-mastery-btns button{flex:1;border:none;border-radius:8px;padding:5px 4px;font-size:.7em;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .2s;opacity:.7}
+.flash-mastery-btns button:hover{opacity:1;transform:scale(1.06)}
+.fmb-no{background:rgba(216,90,48,.3);color:#ffb090}
+.fmb-mid{background:rgba(245,197,24,.2);color:#ffe080}
+.fmb-ok{background:rgba(29,158,117,.3);color:#80f0c0}
+.flash-badge{position:absolute;top:8px;right:8px;font-size:.65em;padding:2px 7px;border-radius:20px;font-weight:800;z-index:2}
+.flash-badge.badge-no{background:rgba(216,90,48,.3);color:#ffb090}
+.flash-badge.badge-mid{background:rgba(245,197,24,.2);color:#ffe080}
+.flash-badge.badge-ok{background:rgba(29,158,117,.3);color:#80f0c0}
+/* Mastery progress bar */
+.flash-progress-wrap{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;margin-bottom:16px}
+.flash-progress-label{font-size:.78em;color:#7090b0;margin-bottom:8px;display:flex;justify-content:space-between}
+.flash-progress-label span{font-weight:800;color:#c0d8f0}
+.flash-progress-bar{height:8px;border-radius:20px;background:rgba(255,255,255,.07);overflow:hidden}
+.flash-progress-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--blue),var(--teal));transition:width .5s ease}
+.flash-progress-stars{display:flex;gap:10px;margin-top:10px;font-size:.78em}
+.flash-progress-stars span{display:flex;align-items:center;gap:4px}
 
 /* Mini exercises */
 .mini-ex{background:rgba(245,197,24,.05);border:1px solid rgba(245,197,24,.15);border-radius:13px;padding:16px;margin-bottom:13px}
@@ -264,7 +282,7 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
 
   /* Flash cards */
   .flash-grid{grid-template-columns:1fr 1fr;gap:8px;padding:0 10px}
-  .flash-card{height:130px;font-size:.85em}
+  .flash-card{height:190px;font-size:.85em}
 }
 </style>
 </head>
@@ -851,6 +869,42 @@ function retryMiniEx(i) {
 }
 
 // ===== MODULE FLASHCARDS =====
+function _fcKey() { return 'fc_mastery_' + (curLesson && curLesson.id || 'x'); }
+function _fcGetMastery() { try { return JSON.parse(localStorage.getItem(_fcKey()) || '{}'); } catch(e){ return {}; } }
+function _fcSetMastery(idx, level) {
+  var m = _fcGetMastery(); m[idx] = level;
+  try { localStorage.setItem(_fcKey(), JSON.stringify(m)); } catch(e){}
+  _fcUpdateProgress();
+}
+function _fcUpdateProgress() {
+  var fc = curLesson.flashcards || [];
+  var m = _fcGetMastery();
+  var no = 0, mid = 0, ok = 0;
+  fc.forEach(function(_, i) {
+    var v = m[i] || 0;
+    if (v === 1) no++; else if (v === 2) mid++; else if (v === 3) ok++;
+  });
+  var rated = no + mid + ok;
+  var pct = fc.length ? Math.round(ok / fc.length * 100) : 0;
+  var bar = document.getElementById('fcProgressFill');
+  if (bar) bar.style.width = pct + '%';
+  var lbl = document.getElementById('fcProgressPct');
+  if (lbl) lbl.textContent = pct + '%';
+  var stats = document.getElementById('fcProgressStats');
+  if (stats) stats.innerHTML =
+    '<span>❓ ' + (fc.length - rated) + ' por ver</span>' +
+    '<span>🔄 ' + mid + ' en curso</span>' +
+    '<span>✅ ' + ok + ' maîtrisées</span>';
+  // update badges
+  fc.forEach(function(_, i) {
+    var badge = document.getElementById('fcbadge' + i);
+    if (!badge) return;
+    var v = m[i] || 0;
+    badge.className = 'flash-badge' + (v===1?' badge-no':v===2?' badge-mid':v===3?' badge-ok':'');
+    badge.textContent = v===1?'❓ À revoir':v===2?'🔄 En cours':v===3?'✅ Maîtrisé':'';
+  });
+}
+
 function renderFlashcards() {
   var panel = document.getElementById('mp-flashcards');
   var fc = curLesson.flashcards || [];
@@ -858,14 +912,48 @@ function renderFlashcards() {
     panel.innerHTML = '<div style="text-align:center;padding:60px;color:#4060a0">🃏 No hay tarjetas para esta lección.</div>';
     return;
   }
-  var html = '<div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--sky);margin-bottom:10px">🃏 Tarjetas de repaso — ' + fc.length + ' tarjetas</div>';
-  html += '<div class="flash-hint">💡 Haz clic en la tarjeta para ver la respuesta</div>';
+  var m = _fcGetMastery();
+  var html = '<div style="font-family:Poppins,sans-serif;font-size:1.05em;font-weight:800;color:var(--sky);margin-bottom:12px">🃏 Tarjetas de repaso — ' + fc.length + ' tarjetas</div>';
+  // Progress bar
+  html += '<div class="flash-progress-wrap">' +
+    '<div class="flash-progress-label"><span>Progression</span><span id="fcProgressPct">0%</span></div>' +
+    '<div class="flash-progress-bar"><div class="flash-progress-fill" id="fcProgressFill" style="width:0%"></div></div>' +
+    '<div class="flash-progress-stars" id="fcProgressStats"></div>' +
+  '</div>';
+  html += '<div class="flash-hint">💡 Retourne la carte, puis évalue ta réponse</div>';
   html += '<div class="flash-grid">';
   fc.forEach(function(card, i) {
-    html += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')"><div class="flash-inner"><div class="flash-front"><div class="flash-q">' + card.pregunta + '</div><div class="flash-hint-txt">Toca para ver ↩</div></div><div class="flash-back"><div class="flash-a">' + card.respuesta + '</div></div></div></div>';
+    var v = m[i] || 0;
+    var badgeClass = v===1?'flash-badge badge-no':v===2?'flash-badge badge-mid':v===3?'flash-badge badge-ok':'flash-badge';
+    var badgeTxt = v===1?'❓ À revoir':v===2?'🔄 En cours':v===3?'✅ Maîtrisé':'';
+    html += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')">' +
+      '<span class="' + badgeClass + '" id="fcbadge' + i + '">' + badgeTxt + '</span>' +
+      '<div class="flash-inner">' +
+        '<div class="flash-front">' +
+          '<div class="flash-q">' + card.pregunta + '</div>' +
+          '<div class="flash-hint-txt">Toca para ver ↩</div>' +
+        '</div>' +
+        '<div class="flash-back">' +
+          '<div class="flash-a">' + card.respuesta + '</div>' +
+          '<div class="flash-mastery-btns" onclick="event.stopPropagation()">' +
+            '<button class="fmb-no" onclick="setMastery(' + i + ',1)">❓ À revoir</button>' +
+            '<button class="fmb-mid" onclick="setMastery(' + i + ',2)">🔄 En cours</button>' +
+            '<button class="fmb-ok" onclick="setMastery(' + i + ',3)">✅ Je sais</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
   });
   html += '</div>';
   panel.innerHTML = html;
+  _fcUpdateProgress();
+}
+
+function setMastery(idx, level) {
+  _fcSetMastery(idx, level);
+  // auto-flip back after rating
+  var card = document.getElementById('fc' + idx);
+  if (card) setTimeout(function(){ card.classList.remove('flipped'); }, 400);
 }
 
 // ===== MODULE EJERCICIOS =====
