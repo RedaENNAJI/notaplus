@@ -601,10 +601,22 @@ function showStep(idx) {
   var pct = Math.round(idx / total * 100);
   var letters = ['A','B','C','D'];
 
+  // Mélanger les options à chaque affichage
+  var origOpts = step.check.opciones || [];
+  var origCorrect = parseInt(step.check.correcta);
+  var shuffled = origOpts.map(function(op, j) { return {text: op, origIdx: j}; });
+  for (var s = shuffled.length - 1; s > 0; s--) {
+    var r = Math.floor(Math.random() * (s + 1));
+    var tmp = shuffled[s]; shuffled[s] = shuffled[r]; shuffled[r] = tmp;
+  }
+  var newCorrect = shuffled.findIndex(function(o) { return o.origIdx === origCorrect; });
+  step._shuffled = shuffled;
+  step._newCorrect = newCorrect;
+
   var optsHtml = '<div class="step-check-opts">';
-  (step.check.opciones || []).forEach(function(op, j) {
+  shuffled.forEach(function(op, j) {
     optsHtml += '<button class="step-opt" id="sopt' + idx + '_' + j + '" onclick="answerStep(' + idx + ',' + j + ')">' +
-      '<span class="step-letter">' + letters[j] + '</span>' + op + '</button>';
+      '<span class="step-letter">' + letters[j] + '</span>' + op.text + '</button>';
   });
   optsHtml += '</div>';
 
@@ -639,9 +651,10 @@ function speakStep(idx) {
 
 function answerStep(idx, chosen) {
   var step = _stepsData[idx];
-  var correct = parseInt(step.check.correcta);
-  var opts = step.check.opciones || [];
-  opts.forEach(function(_, j) {
+  var shuffled = step._shuffled || (step.check.opciones || []).map(function(t,j){return {text:t,origIdx:j};});
+  var correct = (step._newCorrect !== undefined) ? step._newCorrect : parseInt(step.check.correcta);
+  var correctText = (shuffled[correct] || {}).text || '';
+  shuffled.forEach(function(_, j) {
     var btn = document.getElementById('sopt' + idx + '_' + j);
     if (!btn) return;
     btn.disabled = true;
@@ -653,8 +666,8 @@ function answerStep(idx, chosen) {
   var fb = document.getElementById('sfb' + idx);
   fb.className = 'step-feedback show ' + (ok ? 'ok' : 'nok');
   var expl = step.check.explicacion || '';
-  fb.textContent = ok ? '✅ ¡Muy bien! ' + expl : '❌ No es correcto. La respuesta correcta es: ' + opts[correct] + '. ' + expl;
-  speak(ok ? '¡Muy bien! ' + expl : 'No es correcto. La respuesta correcta es: ' + opts[correct] + '. ' + expl, null);
+  fb.textContent = ok ? '✅ ¡Muy bien! ' + expl : '❌ No es correcto. La respuesta correcta es: ' + correctText + '. ' + expl;
+  speak(ok ? '¡Muy bien! ' + expl : 'No es correcto. La respuesta correcta es: ' + correctText + '. ' + expl, null);
   var nxt = document.getElementById('btnNextStep');
   if (nxt) nxt.className = 'btn-next-step show';
 }
@@ -712,16 +725,34 @@ function flipCard(i) {
   }
 }
 
+function shuffleOpts(opciones, correcta) {
+  var arr = opciones.map(function(t, j) { return {text: t, origIdx: j}; });
+  for (var s = arr.length - 1; s > 0; s--) {
+    var r = Math.floor(Math.random() * (s + 1));
+    var tmp = arr[s]; arr[s] = arr[r]; arr[r] = tmp;
+  }
+  var newCorrect = arr.findIndex(function(o) { return o.origIdx === correcta; });
+  return {arr: arr, newCorrect: newCorrect};
+}
+
 function buildMiniExHtml(mx) {
   var letters = ['A','B','C','D'];
   var html = '<div style="margin-top:24px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--yellow);margin-bottom:12px">🧩 Mini ejercicios</div>';
-  window._miniExData = mx;
-  mx.forEach(function(ex, i) {
+  // mélanger et stocker
+  var shuffledMx = mx.map(function(ex) {
     if (ex.opciones && ex.opciones.length > 0) {
+      var s = shuffleOpts(ex.opciones, parseInt(ex.correcta));
+      return Object.assign({}, ex, {_shuffled: s.arr, _newCorrect: s.newCorrect});
+    }
+    return ex;
+  });
+  window._miniExData = shuffledMx;
+  shuffledMx.forEach(function(ex, i) {
+    if (ex._shuffled) {
       var opts = '<div class="step-check-opts" id="mxopts' + i + '">';
-      ex.opciones.forEach(function(op, j) {
+      ex._shuffled.forEach(function(op, j) {
         opts += '<button class="step-opt" id="mxopt' + i + '_' + j + '" onclick="checkMiniQcm(' + i + ',' + j + ')">' +
-          '<span class="step-letter">' + letters[j] + '</span>' + op + '</button>';
+          '<span class="step-letter">' + letters[j] + '</span>' + op.text + '</button>';
       });
       opts += '</div>';
       html += '<div class="mini-ex" id="mxitem' + i + '"><div class="mini-ex-q">' + ex.pregunta + '</div>' + opts + '<div class="mini-result" id="mxr' + i + '"></div></div>';
