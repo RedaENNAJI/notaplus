@@ -1145,8 +1145,11 @@ function buildMillSrcdoc(qs, allCards) {
     item.ans = opts6.indexOf(item.a);
   });
 
+  // Encode data as base64 to avoid any quote/script-tag issues in the srcdoc string
+  var dataB64 = btoa(unescape(encodeURIComponent(JSON.stringify(pool))));
+  var titreB64 = btoa(unescape(encodeURIComponent(curLesson.titre || 'Quiz')));
+
   return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
-    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;800;900&display=swap">' +
     '<style>' +
     ':root{--bg-deep:#0a1a6e;--bg-mid:#1030b0;--ray-color:#1840cc;--border-green:#00e050;--border-pink:#e0006a;--btn-bg:#0a1a6e;--btn-border:#f5e600;--btn-label:#f5e600;--btn-text:#f5e600;--btn-hover:#1a3aaa;--btn-correct:#00c040;--btn-wrong:#e02020;--btn-fade:#334488;--power-bg:#e0006a;--power-text:#fff;--timer-bar:#f5e600;--score-color:#fff;--hud-bg:rgba(0,0,0,0.5);--question-color:#fff;--counter-color:#ccd5ff;color-scheme:dark}' +
     '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;background:var(--bg-deep)}' +
@@ -1176,7 +1179,7 @@ function buildMillSrcdoc(qs, allCards) {
     '.feedback{position:relative;z-index:2;min-height:28px;text-align:center;font-family:\'Nunito\',sans-serif;font-weight:900;font-size:0.85rem;color:#adf0c0;padding:2px 16px 6px}' +
     '</style>' +
     '<div class="board" id="board"><div class="rays"></div>' +
-    '<div class="overlay" id="introOverlay"><h2>🧠 ' + (curLesson.titre||'Quiz') + '</h2>' +
+    '<div class="overlay" id="introOverlay"><h2 id="introTitle">🧠</h2>' +
     '<p>10 preguntas · Elige la respuesta correcta</p>' +
     '<p style="color:#f5e600;font-size:.85rem">Tienes 20 segundos por pregunta.<br>Usa los comodines con sabiduría.</p>' +
     '<button class="btn-start" onclick="startGame()">¡Jugar!</button></div>' +
@@ -1189,7 +1192,8 @@ function buildMillSrcdoc(qs, allCards) {
     '<div class="bottombar"><div class="counter" id="counterText">– de 10</div></div></div>' +
     '<script>' +
     'const LABELS=["A","B","C","D","E","F"];const TIME_PER_Q=20;' +
-    'const ALL_QUESTIONS=' + JSON.stringify(pool) + ';' +
+    'const ALL_QUESTIONS=JSON.parse(decodeURIComponent(escape(atob("' + dataB64 + '"))));' +
+    'document.getElementById("introTitle").textContent="🧠 "+decodeURIComponent(escape(atob("' + titreB64 + '")));' +
     'function shuffle(arr){return[...arr].sort(()=>Math.random()-0.5)}' +
     'let questions,qIndex,score,timerVal,timerInt,answered,doubleActive=false,fiftyUsed=false,doubleUsed=false,timeUsed=false;' +
     'function startGame(){questions=shuffle(ALL_QUESTIONS).slice(0,10);qIndex=0;score=0;answered=false;doubleActive=false;fiftyUsed=false;doubleUsed=false;timeUsed=false;document.getElementById("introOverlay").hidden=true;document.getElementById("endOverlay").hidden=true;document.getElementById("scoreDisplay").textContent="0";["pwrDouble","pwrFifty","pwrTime"].forEach(function(id){var b=document.getElementById(id);b.classList.remove("used");b.disabled=false});showQuestion()}' +
@@ -1210,16 +1214,16 @@ function buildMillSrcdoc(qs, allCards) {
 function buildCartasSrcdoc(qs) {
   var pool = JSON.parse(JSON.stringify(qs));
   pool.forEach(function(item) {
-    // 4 opts: correct + 3 distractors from other cards in the same pool
     var others = pool.filter(function(c){ return c.a !== item.a; });
     var dist = others.sort(function(){ return Math.random()-.5; }).slice(0,3).map(function(c){ return c.a; });
     var opts = [item.a].concat(dist).sort(function(){ return Math.random()-.5; });
     item.opts = opts;
     item.ans = opts.indexOf(item.a);
   });
+  var dataB64c = btoa(unescape(encodeURIComponent(JSON.stringify(pool))));
+  var titreB64c = btoa(unescape(encodeURIComponent(curLesson.titre || 'Cartas')));
 
   return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
-    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;800;900&display=swap">' +
     '<style>' +
     ':root{--bg:#5bb8e8;--bg2:#3a9fd4;--card-closed:#2a6fa8;--card-border:#1a4f7a;--card-open-bg:#a0f0d8;--card-open-border:#00c888;--card-num:#fff;--card-q:#006644;--hud-bg:rgba(20,80,130,0.7);--hud-text:#fff;--score-color:#fff;--timer-color:#fff;--ornament:rgba(255,255,255,0.12);color-scheme:light}' +
     '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;background:var(--bg)}' +
@@ -1248,7 +1252,7 @@ function buildCartasSrcdoc(qs) {
     '.overlay h2{font-family:\'Bangers\',cursive;font-size:clamp(2rem,7vw,3.2rem);color:#ffe040;text-shadow:2px 3px 0 rgba(0,0,0,0.5)}.overlay .big-score{font-family:\'Bangers\',cursive;font-size:clamp(3.5rem,12vw,5.5rem);color:#fff}.overlay p{color:#c0d8ff;font-weight:700;font-size:1rem;max-width:340px}' +
     '.btn-go{background:#00d060;color:#003020;border:none;border-radius:30px;font-family:\'Nunito\',sans-serif;font-weight:900;font-size:1.1rem;padding:12px 36px;cursor:pointer;transition:transform 0.15s}.btn-go:hover{transform:scale(1.06)}' +
     '</style>' +
-    '<div class="overlay" id="introOv"><h2>🃏 ' + (curLesson.titre||'Cartas') + '</h2><p>Toca una carta para revelar la pregunta.<br>Elige la respuesta correcta.</p><p style="color:#ffe040;font-size:.85rem">10 cartas · 30 segundos por carta</p><button class="btn-go" onclick="startGame()">¡Empezar!</button></div>' +
+    '<div class="overlay" id="introOv"><h2 id="introTitleC">🃏</h2><p>Toca una carta para revelar la pregunta.<br>Elige la respuesta correcta.</p><p style="color:#ffe040;font-size:.85rem">10 cartas · 30 segundos por carta</p><button class="btn-go" onclick="startGame()">¡Empezar!</button></div>' +
     '<div class="overlay" id="endOv" hidden><h2 id="endTitle">¡Fin!</h2><div class="big-score" id="endScore">0/10</div><p id="endMsg"></p><button class="btn-go" onclick="startGame()">🔁 Otra partida</button></div>' +
     '<div class="board"><div class="hud"><div class="hud-timer" id="timerNum">30</div><div class="hud-title" id="hudTitle">Toca una para abrirla</div><div class="hud-score"><span>✓</span><span id="scoreDisp">0</span></div></div>' +
     '<div class="instr" id="instrBar">Toca una carta para empezar</div>' +
@@ -1256,7 +1260,8 @@ function buildCartasSrcdoc(qs) {
     '<div class="answer-panel" id="ansPanel"><div class="ap-wait" id="apWait">↑ Abre una carta para responder</div><div class="ap-question" id="apQ" hidden></div><div class="ap-choices" id="apChoices" hidden></div></div>' +
     '<div class="bottombar"><div class="bb-counter" id="bbCounter">0 / 10</div><div class="bb-streak" id="bbStreak"></div></div></div>' +
     '<script>' +
-    'const POOL=' + JSON.stringify(pool) + ';' +
+    'const POOL=JSON.parse(decodeURIComponent(escape(atob("' + dataB64c + '"))));' +
+    'document.getElementById("introTitleC").textContent="🃏 "+decodeURIComponent(escape(atob("' + titreB64c + '")));' +
     'function shuffle(a){return[...a].sort(()=>Math.random()-.5)}' +
     'let questions,score,correct,timerVal,timerInt,activeIdx=null,answered=false,streak=0;' +
     'function startGame(){questions=shuffle(POOL).slice(0,10);score=0;correct=0;streak=0;activeIdx=null;answered=false;document.getElementById("introOv").hidden=true;document.getElementById("endOv").hidden=true;document.getElementById("scoreDisp").textContent="0";document.getElementById("bbCounter").textContent="0 / 10";document.getElementById("bbStreak").textContent="";document.getElementById("hudTitle").textContent="Toca una para abrirla";document.getElementById("instrBar").textContent="Toca una carta para empezar";clearInterval(timerInt);document.getElementById("timerNum").textContent="30";resetPanel();buildGrid()}' +
