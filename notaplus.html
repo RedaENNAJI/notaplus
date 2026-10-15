@@ -678,11 +678,15 @@ function answerStep(idx, chosen) {
 }
 
 function retryStep(idx) {
-  var step = _stepsData[idx];
-  // clear shuffled cache so showStep re-shuffles
-  delete step._shuffled;
-  delete step._newCorrect;
-  showStep(idx);
+  var all = _stepsData || [];
+  var pool = all.filter(function(s, i) { return i !== idx && s.check && s.check.opciones && s.check.opciones.length; });
+  if (!pool.length) pool = all.filter(function(s, i) { return s.check && s.check.opciones && s.check.opciones.length; });
+  if (!pool.length) return;
+  var pick = pool[Math.floor(Math.random() * pool.length)];
+  var pickIdx = all.indexOf(pick);
+  delete pick._shuffled;
+  delete pick._newCorrect;
+  showStep(pickIdx);
 }
 
 function goNextStep(idx) {
