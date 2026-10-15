@@ -233,6 +233,60 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
   .flash-card{height:140px}
 }
 
+/* ===== JUGAR ===== */
+.jugar-menu{padding:20px 16px}
+.jugar-menu-title{font-family:'Poppins',sans-serif;font-size:1.05em;font-weight:800;margin-bottom:16px;color:var(--yellow)}
+.jugar-mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.jugar-mode-btn{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:18px 14px;cursor:pointer;text-align:center;transition:all .3s;font-family:'Nunito',sans-serif;color:#fff}
+.jugar-mode-btn:hover{border-color:rgba(245,197,24,.5);transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.jugar-mode-icon{font-size:34px;display:block;margin-bottom:8px}
+.jugar-mode-name{font-family:'Poppins',sans-serif;font-weight:800;font-size:.88em;margin-bottom:4px}
+.jugar-mode-desc{font-size:.72em;color:#5070a0;line-height:1.4}
+/* Game screen inside panel */
+.jugar-game{display:none}
+.jugar-game.active{display:block}
+.jugar-game-back{background:rgba(255,255,255,.06);border:1px solid var(--border);color:#a0c4e8;border-radius:8px;padding:7px 14px;cursor:pointer;font-size:.8em;font-weight:700;font-family:'Nunito',sans-serif;margin:12px 16px 0;display:inline-flex;align-items:center;gap:6px}
+/* --- Millonario game --- */
+.mill-wrap{padding:16px}
+.mill-bar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.mill-score{font-family:'Poppins',sans-serif;font-weight:800;font-size:.9em;color:var(--yellow)}
+.mill-timer{background:#1a2a4a;border-radius:50px;padding:4px 14px;font-weight:800;font-size:.88em;color:#fff;min-width:60px;text-align:center}
+.mill-timer.warn{color:#f5a623;animation:blink .5s infinite alternate}
+@keyframes blink{0%{opacity:1}100%{opacity:.4}}
+.mill-q{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:18px;font-size:.92em;line-height:1.5;margin-bottom:14px;font-weight:600}
+.mill-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.mill-opt{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;font-size:.82em;font-weight:700;text-align:center;font-family:'Nunito',sans-serif;color:#fff;transition:all .25s;display:flex;align-items:center;gap:8px}
+.mill-opt:hover:not(:disabled){background:rgba(30,127,217,.2);border-color:var(--blue)}
+.mill-opt.correct{background:rgba(29,158,117,.3);border-color:var(--teal);color:#5df5b0}
+.mill-opt.wrong{background:rgba(216,90,48,.3);border-color:var(--coral);color:#f5a080}
+.mill-opt:disabled{cursor:default}
+.mill-opt-letter{background:rgba(245,197,24,.15);border:1px solid rgba(245,197,24,.3);border-radius:6px;padding:2px 8px;font-size:.8em;color:var(--yellow);flex-shrink:0}
+.mill-feedback{text-align:center;padding:10px;font-weight:700;font-size:.9em;min-height:36px}
+.mill-next{background:linear-gradient(135deg,var(--blue),#1553a8);border:none;border-radius:50px;padding:10px 28px;color:#fff;font-weight:800;font-size:.9em;cursor:pointer;font-family:'Nunito',sans-serif;display:none}
+.mill-end{text-align:center;padding:30px 16px}
+.mill-end-score{font-family:'Poppins',sans-serif;font-size:2.5em;font-weight:900;color:var(--yellow)}
+/* --- Cartas game --- */
+.cartas-wrap{padding:16px}
+.cartas-bar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.cartas-prog{font-size:.82em;color:#5070a0}
+.cartas-timer{background:#1a2a4a;border-radius:50px;padding:4px 14px;font-weight:800;font-size:.88em;color:#fff;min-width:60px;text-align:center}
+.cartas-timer.warn{color:#f5a623;animation:blink .5s infinite alternate}
+.cartas-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
+.carta{background:var(--navy2);border:1px solid var(--border);border-radius:10px;aspect-ratio:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:900;font-size:1em;transition:all .3s;position:relative;overflow:hidden}
+.carta:not(.done):hover{border-color:var(--yellow);transform:scale(1.05)}
+.carta.done{cursor:default;background:rgba(29,158,117,.15);border-color:rgba(29,158,117,.4)}
+.carta.active-carta{border-color:var(--yellow);box-shadow:0 0 0 2px var(--yellow)}
+.carta-num{color:var(--yellow)}
+.cartas-question{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;min-height:70px;font-size:.9em;line-height:1.5;font-weight:600}
+.cartas-answer-reveal{background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.3);border-radius:10px;padding:14px;margin-bottom:12px;font-size:.88em;line-height:1.5;display:none}
+.cartas-answer-reveal.show{display:block}
+.cartas-btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn-carta-known{background:linear-gradient(135deg,var(--teal),#0e7a58);border:none;border-radius:50px;padding:9px 20px;color:#fff;font-weight:800;font-size:.82em;cursor:pointer;font-family:'Nunito',sans-serif}
+.btn-carta-unknown{background:rgba(216,90,48,.15);border:1px solid rgba(216,90,48,.3);border-radius:50px;padding:9px 20px;color:#f0a080;font-weight:800;font-size:.82em;cursor:pointer;font-family:'Nunito',sans-serif}
+.cartas-reveal-btn{background:rgba(245,197,24,.12);border:1px solid rgba(245,197,24,.3);border-radius:50px;padding:9px 20px;color:var(--yellow);font-weight:800;font-size:.82em;cursor:pointer;font-family:'Nunito',sans-serif}
+.cartas-end{text-align:center;padding:30px 16px}
+.cartas-end-score{font-family:'Poppins',sans-serif;font-size:2.5em;font-weight:900;color:var(--yellow)}
+
 /* ===== MOBILE RESPONSIVE ===== */
 @media(max-width:680px){
   /* Login */
@@ -353,10 +407,12 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
       <button class="mtab active" id="mtab-aprender" onclick="switchModule('aprender')" style="background:linear-gradient(135deg,#1e7fd9,#1d9e75)">📚 Aprender</button>
       <button class="mtab" id="mtab-flashcards" onclick="switchModule('flashcards')">🃏 Memorizar</button>
       <button class="mtab" id="mtab-ejercicios" onclick="switchModule('ejercicios')">✏️ Ejercicios</button>
+      <button class="mtab" id="mtab-jugar" onclick="switchModule('jugar')">🎮 Jugar</button>
     </div>
     <div class="module-panel active" id="mp-aprender"></div>
     <div class="module-panel" id="mp-ejercicios"></div>
     <div class="module-panel" id="mp-flashcards"></div>
+    <div class="module-panel" id="mp-jugar"></div>
   </div>
 </div>
 
@@ -543,12 +599,14 @@ function switchModule(mod) {
   var btn = document.getElementById('mtab-' + mod); btn.classList.add('active');
   if (mod === 'aprender') btn.style.background = 'linear-gradient(135deg,#1e7fd9,#1d9e75)';
   else if (mod === 'flashcards') btn.style.background = 'linear-gradient(135deg,#1d6faa,#0e4f8a)';
-  else btn.style.background = 'linear-gradient(135deg,#D85A30,#b34a20)';
+  else if (mod === 'ejercicios') btn.style.background = 'linear-gradient(135deg,#D85A30,#b34a20)';
+  else btn.style.background = 'linear-gradient(135deg,#8B5CF6,#5B21B6)';
   document.getElementById('mp-' + mod).classList.add('active');
   synth.cancel(); speaking = false;
   if (mod === 'aprender') renderAprender();
   else if (mod === 'flashcards') renderFlashcards();
-  else renderEjercicios();
+  else if (mod === 'ejercicios') renderEjercicios();
+  else renderJugar();
 }
 
 // ===== MODULE APRENDER =====
@@ -1051,6 +1109,276 @@ function speakCorrIdx(i) {
   box.innerHTML = '📝 <strong>Corrección:</strong> ' + corr;
   box.classList.add('show');
   speak('La corrección es: ' + corr, null);
+}
+
+// ===== MODULE JUGAR =====
+function renderJugar() {
+  var panel = document.getElementById('mp-jugar');
+  // Collect cards: support both {f,b} and {pregunta,respuesta} formats
+  var fc = curLesson.flashcards || [];
+  var cards = fc.map(function(c) {
+    return { q: c.pregunta || c.f || '', a: c.respuesta || c.b || '' };
+  }).filter(function(c) { return c.q && c.a; });
+
+  if (cards.length < 3) {
+    panel.innerHTML = '<div style="text-align:center;padding:60px;color:#4060a0">🎮 El profesor aún no ha añadido suficientes tarjetas para jugar.</div>';
+    return;
+  }
+
+  panel.innerHTML =
+    '<div class="jugar-menu" id="jugar-menu">' +
+      '<div class="jugar-menu-title">🎮 Elige tu modo de juego</div>' +
+      '<div class="jugar-mode-grid">' +
+        '<button class="jugar-mode-btn" onclick="startJugarMillonario()">' +
+          '<span class="jugar-mode-icon">🏆</span>' +
+          '<div class="jugar-mode-name">¿Quién quiere ser millonario?</div>' +
+          '<div class="jugar-mode-desc">4 respuestas, 20s por pregunta, 10 preguntas</div>' +
+        '</button>' +
+        '<button class="jugar-mode-btn" onclick="startJugarCartas()">' +
+          '<span class="jugar-mode-icon">🃏</span>' +
+          '<div class="jugar-mode-name">Cartas mágicas</div>' +
+          '<div class="jugar-mode-desc">10 cartas a revelar, 30s por carta</div>' +
+        '</button>' +
+      '</div>' +
+      '<div style="font-size:.78em;color:#3a5070;text-align:center">' + cards.length + ' tarjetas disponibles en esta lección</div>' +
+    '</div>' +
+    '<div class="jugar-game" id="jugar-game-mill"><button class="jugar-game-back" onclick="jugarBack()">← Volver</button><div class="mill-wrap" id="mill-content"></div></div>' +
+    '<div class="jugar-game" id="jugar-game-cartas"><button class="jugar-game-back" onclick="jugarBack()">← Volver</button><div class="cartas-wrap" id="cartas-content"></div></div>';
+}
+
+function jugarBack() {
+  document.getElementById('jugar-menu').style.display = '';
+  document.getElementById('jugar-game-mill').classList.remove('active');
+  document.getElementById('jugar-game-cartas').classList.remove('active');
+  clearInterval(window._jugarTimer);
+}
+
+// --- helpers ---
+function jugarGetCards() {
+  var fc = curLesson.flashcards || [];
+  return fc.map(function(c) {
+    return { q: c.pregunta || c.f || '', a: c.respuesta || c.b || '' };
+  }).filter(function(c) { return c.q && c.a; });
+}
+
+function jugarShuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+// ===== MILLONARIO =====
+function startJugarMillonario() {
+  document.getElementById('jugar-menu').style.display = 'none';
+  var g = document.getElementById('jugar-game-mill');
+  g.classList.add('active');
+  var all = jugarShuffle(jugarGetCards());
+  var qs = all.slice(0, Math.min(10, all.length));
+  window._mill = { qs: qs, idx: 0, score: 0, total: qs.length, answered: false };
+  millRender();
+}
+
+function millRender() {
+  var m = window._mill;
+  if (m.idx >= m.total) { millEnd(); return; }
+  var q = m.qs[m.idx];
+  var all = jugarGetCards();
+  // Build distractors: other cards' answers
+  var others = all.filter(function(c) { return c.a !== q.a; });
+  var shuffled = jugarShuffle(others).slice(0, 3).map(function(c) { return c.a; });
+  var opts = jugarShuffle([q.a].concat(shuffled));
+  var correctIdx = opts.indexOf(q.a);
+  m.curCorrect = correctIdx;
+  m.answered = false;
+  var letters = ['A', 'B', 'C', 'D'];
+  var optsHtml = '';
+  opts.forEach(function(o, i) {
+    optsHtml += '<button class="mill-opt" id="mill-opt-' + i + '" onclick="millAnswer(' + i + ')">' +
+      '<span class="mill-opt-letter">' + letters[i] + '</span>' + o + '</button>';
+  });
+  var el = document.getElementById('mill-content');
+  el.innerHTML =
+    '<div class="mill-bar">' +
+      '<span class="mill-score">⭐ ' + m.score + ' / ' + m.total + '</span>' +
+      '<span style="flex:1"></span>' +
+      '<span class="mill-timer" id="mill-timer">20</span>' +
+    '</div>' +
+    '<div style="font-size:.75em;color:#4060a0;margin-bottom:8px">Pregunta ' + (m.idx+1) + ' de ' + m.total + '</div>' +
+    '<div class="mill-q">' + q.q + '</div>' +
+    '<div class="mill-opts">' + optsHtml + '</div>' +
+    '<div class="mill-feedback" id="mill-feedback"></div>' +
+    '<button class="mill-next" id="mill-next" onclick="millNext()">Siguiente →</button>';
+  millStartTimer(20);
+}
+
+function millStartTimer(s) {
+  clearInterval(window._jugarTimer);
+  var el = document.getElementById('mill-timer');
+  if (!el) return;
+  el.textContent = s;
+  el.classList.remove('warn');
+  window._jugarTimer = setInterval(function() {
+    s--;
+    var el2 = document.getElementById('mill-timer');
+    if (!el2) { clearInterval(window._jugarTimer); return; }
+    el2.textContent = s;
+    if (s <= 5) el2.classList.add('warn');
+    if (s <= 0) { clearInterval(window._jugarTimer); if (!window._mill.answered) millTimeout(); }
+  }, 1000);
+}
+
+function millTimeout() {
+  var m = window._mill;
+  m.answered = true;
+  var fb = document.getElementById('mill-feedback');
+  if (fb) fb.innerHTML = '⏰ ¡Tiempo! La respuesta era: <strong>' + m.qs[m.idx].a + '</strong>';
+  var opt = document.getElementById('mill-opt-' + m.curCorrect);
+  if (opt) opt.classList.add('correct');
+  document.querySelectorAll('.mill-opt').forEach(function(b) { b.disabled = true; });
+  var nx = document.getElementById('mill-next');
+  if (nx) nx.style.display = 'inline-block';
+}
+
+function millAnswer(i) {
+  var m = window._mill;
+  if (m.answered) return;
+  m.answered = true;
+  clearInterval(window._jugarTimer);
+  var ok = i === m.curCorrect;
+  if (ok) m.score++;
+  document.querySelectorAll('.mill-opt').forEach(function(b, j) {
+    b.disabled = true;
+    if (j === m.curCorrect) b.classList.add('correct');
+    else if (j === i && !ok) b.classList.add('wrong');
+  });
+  var fb = document.getElementById('mill-feedback');
+  if (fb) fb.innerHTML = ok ? '✅ ¡Correcto!' : '❌ Incorrecto. Era: <strong>' + m.qs[m.idx].a + '</strong>';
+  var nx = document.getElementById('mill-next');
+  if (nx) nx.style.display = 'inline-block';
+}
+
+function millNext() {
+  window._mill.idx++;
+  millRender();
+}
+
+function millEnd() {
+  clearInterval(window._jugarTimer);
+  var m = window._mill;
+  var pct = Math.round(m.score / m.total * 100);
+  var emoji = pct >= 80 ? '🏆' : pct >= 50 ? '👍' : '💪';
+  document.getElementById('mill-content').innerHTML =
+    '<div class="mill-end">' +
+      '<div style="font-size:3em;margin-bottom:12px">' + emoji + '</div>' +
+      '<div class="mill-end-score">' + m.score + ' / ' + m.total + '</div>' +
+      '<div style="color:#5070a0;font-size:.88em;margin:8px 0 24px">' + pct + '% de respuestas correctas</div>' +
+      '<button class="mill-next" style="display:inline-block" onclick="startJugarMillonario()">🔄 Jugar de nuevo</button>' +
+    '</div>';
+}
+
+// ===== CARTAS =====
+function startJugarCartas() {
+  document.getElementById('jugar-menu').style.display = 'none';
+  var g = document.getElementById('jugar-game-cartas');
+  g.classList.add('active');
+  var all = jugarShuffle(jugarGetCards());
+  var qs = all.slice(0, Math.min(10, all.length));
+  window._cartas = { qs: qs, cur: -1, known: 0, total: qs.length, revealed: false };
+  cartasRender();
+}
+
+function cartasRender() {
+  var m = window._cartas;
+  var gridHtml = '';
+  for (var i = 0; i < m.total; i++) {
+    var done = m.qs[i]._done;
+    var active = i === m.cur;
+    gridHtml += '<button class="carta' + (done ? ' done' : '') + (active ? ' active-carta' : '') +
+      '" id="carta-' + i + '" onclick="cartaSelect(' + i + ')">' +
+      (done ? '✓' : '<span class="carta-num">' + (i+1) + '</span>') + '</button>';
+  }
+  var known = m.qs.filter(function(q) { return q._done === 'known'; }).length;
+  var doneCount = m.qs.filter(function(q) { return q._done; }).length;
+  var qHtml = m.cur >= 0 ? m.qs[m.cur].q : '← Elige una carta para empezar';
+  var aHtml = m.cur >= 0 ? m.qs[m.cur].a : '';
+  var revealed = m.revealed;
+  var content = document.getElementById('cartas-content');
+  content.innerHTML =
+    '<div class="cartas-bar">' +
+      '<span class="cartas-prog">✅ ' + known + ' conocidas · ' + (m.total - doneCount) + ' restantes</span>' +
+      '<span style="flex:1"></span>' +
+      (m.cur >= 0 && !m.qs[m.cur]._done ? '<span class="cartas-timer' + (window._cartasTime <= 5 ? ' warn' : '') + '" id="cartas-timer">30</span>' : '') +
+    '</div>' +
+    '<div class="cartas-grid">' + gridHtml + '</div>' +
+    '<div class="cartas-question" id="cartas-q">' + qHtml + '</div>' +
+    (m.cur >= 0 && !m.qs[m.cur]._done ?
+      '<div class="cartas-answer-reveal' + (revealed ? ' show' : '') + '" id="cartas-ans">' + aHtml + '</div>' +
+      '<div class="cartas-btns">' +
+        (!revealed ? '<button class="cartas-reveal-btn" onclick="cartasReveal()">👁 Ver respuesta</button>' :
+          '<button class="btn-carta-known" onclick="cartasDone(true)">✅ Lo sabía</button>' +
+          '<button class="btn-carta-unknown" onclick="cartasDone(false)">❌ No lo sabía</button>') +
+      '</div>' : '') +
+    (doneCount >= m.total ?
+      '<div class="cartas-end">' +
+        '<div style="font-size:3em;margin-bottom:12px">' + (known/m.total >= 0.8 ? '🏆' : '💪') + '</div>' +
+        '<div class="cartas-end-score">' + known + ' / ' + m.total + '</div>' +
+        '<div style="color:#5070a0;font-size:.88em;margin:8px 0 24px">tarjetas conocidas</div>' +
+        '<button class="cartas-reveal-btn" onclick="startJugarCartas()">🔄 Jugar de nuevo</button>' +
+      '</div>' : '');
+  // Restart timer if new card selected and not done
+  if (m.cur >= 0 && !m.qs[m.cur]._done && !revealed) {
+    cartasStartTimer();
+  }
+}
+
+function cartaSelect(i) {
+  var m = window._cartas;
+  if (m.qs[i]._done) return;
+  clearInterval(window._jugarTimer);
+  m.cur = i;
+  m.revealed = false;
+  window._cartasTime = 30;
+  cartasRender();
+}
+
+function cartasReveal() {
+  window._cartas.revealed = true;
+  clearInterval(window._jugarTimer);
+  var ans = document.getElementById('cartas-ans');
+  var btns = document.querySelector('.cartas-btns');
+  if (ans) ans.classList.add('show');
+  if (btns) btns.innerHTML =
+    '<button class="btn-carta-known" onclick="cartasDone(true)">✅ Lo sabía</button>' +
+    '<button class="btn-carta-unknown" onclick="cartasDone(false)">❌ No lo sabía</button>';
+}
+
+function cartasDone(known) {
+  var m = window._cartas;
+  if (m.cur < 0) return;
+  m.qs[m.cur]._done = known ? 'known' : 'unknown';
+  m.cur = -1;
+  m.revealed = false;
+  clearInterval(window._jugarTimer);
+  cartasRender();
+}
+
+function cartasStartTimer() {
+  clearInterval(window._jugarTimer);
+  window._cartasTime = 30;
+  window._jugarTimer = setInterval(function() {
+    window._cartasTime--;
+    var el = document.getElementById('cartas-timer');
+    if (!el) { clearInterval(window._jugarTimer); return; }
+    el.textContent = window._cartasTime;
+    if (window._cartasTime <= 5) el.classList.add('warn');
+    if (window._cartasTime <= 0) {
+      clearInterval(window._jugarTimer);
+      cartasReveal();
+    }
+  }, 1000);
 }
 
 // ===== INIT =====
