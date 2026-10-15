@@ -577,14 +577,7 @@ function renderAprender() {
     html += '</div></div>';
   }
 
-  if (mx.length > 0) {
-    html += '<div style="margin-top:24px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--yellow);margin-bottom:12px">🧩 Mini ejercicios</div>';
-    window._miniExData = mx;
-    mx.forEach(function(ex, i) {
-      html += '<div class="mini-ex"><div class="mini-ex-q">' + ex.pregunta + '</div><input type="text" class="mini-ex-input" id="mx' + i + '" placeholder="Tu respuesta..."><button class="btn-check" onclick="checkMiniIdx(' + i + ')">Comprobar ✓</button><div class="mini-result" id="mxr' + i + '"></div></div>';
-    });
-    html += '</div>';
-  }
+  if (mx.length > 0) html += buildMiniExHtml(mx);
 
   panel.innerHTML = html;
   panel._fullText = fullText;
@@ -684,15 +677,7 @@ function showStepsComplete() {
     });
     fcHtml += '</div></div>';
   }
-  var mxHtml = '';
-  if (mx.length > 0) {
-    mxHtml += '<div style="margin-top:24px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--yellow);margin-bottom:12px">🧩 Mini ejercicios</div>';
-    window._miniExData = mx;
-    mx.forEach(function(ex, i) {
-      mxHtml += '<div class="mini-ex"><div class="mini-ex-q">' + ex.pregunta + '</div><input type="text" class="mini-ex-input" id="mx' + i + '" placeholder="Tu respuesta..."><button class="btn-check" onclick="checkMiniIdx(' + i + ')">Comprobar ✓</button><div class="mini-result" id="mxr' + i + '"></div></div>';
-    });
-    mxHtml += '</div>';
-  }
+  var mxHtml = mx.length > 0 ? buildMiniExHtml(mx) : '';
   panel.innerHTML =
     '<div class="steps-complete">' +
       '<span class="steps-complete-icon">🏆</span>' +
@@ -727,22 +712,94 @@ function flipCard(i) {
   }
 }
 
+function buildMiniExHtml(mx) {
+  var letters = ['A','B','C','D'];
+  var html = '<div style="margin-top:24px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--yellow);margin-bottom:12px">🧩 Mini ejercicios</div>';
+  window._miniExData = mx;
+  mx.forEach(function(ex, i) {
+    if (ex.opciones && ex.opciones.length > 0) {
+      var opts = '<div class="step-check-opts" id="mxopts' + i + '">';
+      ex.opciones.forEach(function(op, j) {
+        opts += '<button class="step-opt" id="mxopt' + i + '_' + j + '" onclick="checkMiniQcm(' + i + ',' + j + ')">' +
+          '<span class="step-letter">' + letters[j] + '</span>' + op + '</button>';
+      });
+      opts += '</div>';
+      html += '<div class="mini-ex" id="mxitem' + i + '"><div class="mini-ex-q">' + ex.pregunta + '</div>' + opts + '<div class="mini-result" id="mxr' + i + '"></div></div>';
+    } else {
+      html += '<div class="mini-ex" id="mxitem' + i + '"><div class="mini-ex-q">' + ex.pregunta + '</div><input type="text" class="mini-ex-input" id="mx' + i + '" placeholder="Tu respuesta..."><button class="btn-check" onclick="checkMiniIdx(' + i + ')">Comprobar ✓</button><div class="mini-result" id="mxr' + i + '"></div></div>';
+    }
+  });
+  html += '</div>';
+  return html;
+}
+
+function checkMiniQcm(i, chosen) {
+  var data = (window._miniExData || [])[i];
+  if (!data) return;
+  var correct = parseInt(data.correcta);
+  var expl = data.explicacion || '';
+  var correctText = (data.opciones || [])[correct] || '';
+  var opts = document.getElementById('mxopts' + i);
+  if (opts) opts.querySelectorAll('.step-opt').forEach(function(b, j) {
+    b.disabled = true;
+    if (j === correct) b.classList.add('correct');
+    else if (j === chosen) b.classList.add('wrong');
+    else b.classList.add('revealed');
+  });
+  var res = document.getElementById('mxr' + i);
+  var ok = chosen === correct;
+  if (ok) {
+    res.className = 'mini-result show ok';
+    res.innerHTML = '✅ ¡Correcto! ' + expl;
+    speak('¡Muy bien! ' + expl, null);
+  } else {
+    res.className = 'mini-result show nok';
+    res.innerHTML = '❌ No exactamente. La respuesta correcta es: ' + correctText + '. ' + expl +
+      '<br><button class="btn-check" style="margin-top:10px" onclick="retryMiniEx(' + i + ')">🔄 Nueva pregunta</button>';
+    speak('No exactamente. La respuesta correcta es: ' + correctText + '. ' + expl, null);
+  }
+}
+
 function checkMiniIdx(i) {
   var data = (window._miniExData || [])[i];
   if (!data) return;
   var val = document.getElementById('mx' + i).value.trim().toLowerCase();
-  var correct = data.respuesta; var expl = data.explicacion;
+  var correct = data.respuesta || ''; var expl = data.explicacion || '';
   var res = document.getElementById('mxr' + i);
   var ok = val === correct.toLowerCase() || val.replace(/\s/g,'') === correct.toLowerCase().replace(/\s/g,'');
   if (ok) {
     res.className = 'mini-result show ok';
-    res.textContent = '✅ ¡Correcto! ' + expl;
+    res.innerHTML = '✅ ¡Correcto! ' + expl;
     speak('¡Muy bien! ' + expl, null);
   } else {
     res.className = 'mini-result show nok';
-    res.textContent = '❌ No exactamente. La respuesta es: ' + correct + '. ' + expl;
-    speak('La respuesta correcta es: ' + correct + '. ' + expl, null);
+    res.innerHTML = '❌ No exactamente. La respuesta es: ' + correct + '. ' + expl +
+      '<br><button class="btn-check" style="margin-top:10px" onclick="retryMiniEx(' + i + ')">🔄 Nueva pregunta</button>';
+    speak('No exactamente. La respuesta es: ' + correct + '. ' + expl, null);
   }
+}
+
+function retryMiniEx(i) {
+  var allData = window._miniExData || [];
+  if (!allData.length) return;
+  var pool = allData.filter(function(_, idx) { return idx !== i; });
+  if (!pool.length) pool = allData;
+  var pick = pool[Math.floor(Math.random() * pool.length)];
+  var pickIdx = allData.indexOf(pick);
+  var item = document.getElementById('mxitem' + pickIdx);
+  if (!item) return;
+  var res = document.getElementById('mxr' + pickIdx);
+  if (res) { res.innerHTML = ''; res.className = 'mini-result'; }
+  var opts = document.getElementById('mxopts' + pickIdx);
+  if (opts) opts.querySelectorAll('.step-opt').forEach(function(b) {
+    b.disabled = false;
+    b.classList.remove('correct','wrong','revealed');
+  });
+  var inp = document.getElementById('mx' + pickIdx);
+  if (inp) inp.value = '';
+  item.scrollIntoView({behavior:'smooth', block:'center'});
+  item.style.outline = '2px solid var(--yellow)';
+  setTimeout(function(){ item.style.outline = ''; }, 1500);
 }
 
 // ===== MODULE FLASHCARDS =====
