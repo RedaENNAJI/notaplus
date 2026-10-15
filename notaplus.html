@@ -666,10 +666,23 @@ function answerStep(idx, chosen) {
   var fb = document.getElementById('sfb' + idx);
   fb.className = 'step-feedback show ' + (ok ? 'ok' : 'nok');
   var expl = step.check.explicacion || '';
-  fb.textContent = ok ? '✅ ¡Muy bien! ' + expl : '❌ No es correcto. La respuesta correcta es: ' + correctText + '. ' + expl;
+  if (ok) {
+    fb.innerHTML = '✅ ¡Muy bien! ' + expl;
+  } else {
+    fb.innerHTML = '❌ No es correcto. La respuesta correcta es: ' + correctText + '. ' + expl +
+      '<br><button class="btn-retry-ex" style="margin-top:10px" onclick="retryStep(' + idx + ')">🔄 Nueva pregunta</button>';
+  }
   speak(ok ? '¡Muy bien! ' + expl : 'No es correcto. La respuesta correcta es: ' + correctText + '. ' + expl, null);
   var nxt = document.getElementById('btnNextStep');
   if (nxt) nxt.className = 'btn-next-step show';
+}
+
+function retryStep(idx) {
+  var step = _stepsData[idx];
+  // clear shuffled cache so showStep re-shuffles
+  delete step._shuffled;
+  delete step._newCorrect;
+  showStep(idx);
 }
 
 function goNextStep(idx) {
