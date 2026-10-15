@@ -334,9 +334,11 @@ html,body{min-height:100vh;font-family:'Nunito',sans-serif;background:var(--navy
     <div class="module-tabs">
       <button class="mtab active" id="mtab-aprender" onclick="switchModule('aprender')" style="background:linear-gradient(135deg,#1e7fd9,#1d9e75)">📚 Aprender</button>
       <button class="mtab" id="mtab-ejercicios" onclick="switchModule('ejercicios')">✏️ Ejercicios</button>
+      <button class="mtab" id="mtab-flashcards" onclick="switchModule('flashcards')">🃏 Flashcards</button>
     </div>
     <div class="module-panel active" id="mp-aprender"></div>
     <div class="module-panel" id="mp-ejercicios"></div>
+    <div class="module-panel" id="mp-flashcards"></div>
   </div>
 </div>
 
@@ -522,10 +524,12 @@ function switchModule(mod) {
   document.querySelectorAll('.module-panel').forEach(function(p) { p.classList.remove('active'); });
   var btn = document.getElementById('mtab-' + mod); btn.classList.add('active');
   if (mod === 'aprender') btn.style.background = 'linear-gradient(135deg,#1e7fd9,#1d9e75)';
+  else if (mod === 'flashcards') btn.style.background = 'linear-gradient(135deg,#1d6faa,#0e4f8a)';
   else btn.style.background = 'linear-gradient(135deg,#D85A30,#b34a20)';
   document.getElementById('mp-' + mod).classList.add('active');
   synth.cancel(); speaking = false;
   if (mod === 'aprender') renderAprender();
+  else if (mod === 'flashcards') renderFlashcards();
   else renderEjercicios();
 }
 
@@ -739,6 +743,24 @@ function checkMiniIdx(i) {
     res.textContent = '❌ No exactamente. La respuesta es: ' + correct + '. ' + expl;
     speak('La respuesta correcta es: ' + correct + '. ' + expl, null);
   }
+}
+
+// ===== MODULE FLASHCARDS =====
+function renderFlashcards() {
+  var panel = document.getElementById('mp-flashcards');
+  var fc = curLesson.flashcards || [];
+  if (fc.length === 0) {
+    panel.innerHTML = '<div style="text-align:center;padding:60px;color:#4060a0">🃏 No hay tarjetas para esta lección.</div>';
+    return;
+  }
+  var html = '<div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--sky);margin-bottom:10px">🃏 Tarjetas de repaso — ' + fc.length + ' tarjetas</div>';
+  html += '<div class="flash-hint">💡 Haz clic en la tarjeta para ver la respuesta</div>';
+  html += '<div class="flash-grid">';
+  fc.forEach(function(card, i) {
+    html += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')"><div class="flash-inner"><div class="flash-front"><div class="flash-q">' + card.pregunta + '</div><div class="flash-hint-txt">Toca para ver ↩</div></div><div class="flash-back"><div class="flash-a">' + card.respuesta + '</div></div></div></div>';
+  });
+  html += '</div>';
+  panel.innerHTML = html;
 }
 
 // ===== MODULE EJERCICIOS =====
