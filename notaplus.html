@@ -1,4 +1,4 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -608,7 +608,7 @@ function renderAprender() {
   if (fc.length > 0) {
     html += '<div style="margin-top:28px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--sky);margin-bottom:10px">🃏 Tarjetas de repaso</div><div class="flash-hint">💡 Haz clic en la tarjeta para ver la respuesta</div><div class="flash-grid">';
     fc.forEach(function(card, i) {
-      html += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')"><div class="flash-inner"><div class="flash-front"><div class="flash-q">' + (card.pregunta||card.f||'') + '</div><div class="flash-hint-txt">Toca para ver ↩</div></div><div class="flash-back"><div class="flash-a">' + (card.respuesta||card.b||'') + '</div></div></div></div>';
+      html += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')"><div class="flash-inner"><div class="flash-front"><div class="flash-q">' + card.pregunta + '</div><div class="flash-hint-txt">Toca para ver ↩</div></div><div class="flash-back"><div class="flash-a">' + card.respuesta + '</div></div></div></div>';
     });
     html += '</div></div>';
   }
@@ -739,7 +739,7 @@ function showStepsComplete() {
   if (fc.length > 0) {
     fcHtml += '<div style="margin-top:28px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--sky);margin-bottom:10px">🃏 Tarjetas de repaso</div><div class="flash-hint">💡 Haz clic en la tarjeta para ver la respuesta</div><div class="flash-grid">';
     fc.forEach(function(card, i) {
-      fcHtml += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')"><div class="flash-inner"><div class="flash-front"><div class="flash-q">' + (card.pregunta||card.f||'') + '</div><div class="flash-hint-txt">Toca para ver ↩</div></div><div class="flash-back"><div class="flash-a">' + (card.respuesta||card.b||'') + '</div></div></div></div>';
+      fcHtml += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')"><div class="flash-inner"><div class="flash-front"><div class="flash-q">' + card.pregunta + '</div><div class="flash-hint-txt">Toca para ver ↩</div></div><div class="flash-back"><div class="flash-a">' + card.respuesta + '</div></div></div></div>';
     });
     fcHtml += '</div></div>';
   }
@@ -948,11 +948,11 @@ function renderFlashcards() {
       '<span class="' + badgeClass + '" id="fcbadge' + i + '">' + badgeTxt + '</span>' +
       '<div class="flash-inner">' +
         '<div class="flash-front">' +
-          '<div class="flash-q">' + (card.pregunta||card.f||'') + '</div>' +
+          '<div class="flash-q">' + card.pregunta + '</div>' +
           '<div class="flash-hint-txt">Toca para ver ↩</div>' +
         '</div>' +
         '<div class="flash-back">' +
-          '<div class="flash-a">' + (card.respuesta||card.b||'') + '</div>' +
+          '<div class="flash-a">' + card.respuesta + '</div>' +
           '<div class="flash-mastery-btns" onclick="event.stopPropagation()">' +
             '<button class="fmb-no" onclick="setMastery(' + i + ',1)">❓ Repasar</button>' +
             '<button class="fmb-mid" onclick="setMastery(' + i + ',2)">🔄 En curso</button>' +
@@ -1129,7 +1129,7 @@ function launchJugar(mode) {
   var wrap = document.getElementById('jugar-iframe-wrap');
   wrap.classList.add('active');
   var fr = document.getElementById('jugar-iframe');
-  fr.style.height = '680px';
+  fr.style.height = '520px';
   fr.srcdoc = srcdoc;
 }
 
@@ -1153,7 +1153,6 @@ function buildMillSrcdoc(qs, allCards) {
     '<style>' +
     ':root{--bg-deep:#0a1a6e;--bg-mid:#1030b0;--ray-color:#1840cc;--border-green:#00e050;--border-pink:#e0006a;--btn-bg:#0a1a6e;--btn-border:#f5e600;--btn-label:#f5e600;--btn-text:#f5e600;--btn-hover:#1a3aaa;--btn-correct:#00c040;--btn-wrong:#e02020;--btn-fade:#334488;--power-bg:#e0006a;--power-text:#fff;--timer-bar:#f5e600;--score-color:#fff;--hud-bg:rgba(0,0,0,0.5);--question-color:#fff;--counter-color:#ccd5ff;color-scheme:dark}' +
     '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;background:var(--bg-deep)}' +
-    '[hidden]{display:none!important}' +
     'body{display:flex;align-items:center;justify-content:center;font-family:\'Nunito\',sans-serif;padding:8px;min-height:100%}' +
     '.board{width:100%;max-width:680px;border:6px solid var(--border-green);outline:4px solid var(--border-pink);border-radius:12px;overflow:hidden;position:relative;background:var(--bg-deep);box-shadow:0 0 40px rgba(0,224,80,0.3),0 0 80px rgba(224,0,106,0.15)}' +
     '.rays{position:absolute;inset:0;z-index:0;background:conic-gradient(from 0deg at 50% 45%,var(--bg-mid) 0deg,var(--ray-color) 15deg,var(--bg-mid) 30deg,var(--ray-color) 45deg,var(--bg-mid) 60deg,var(--ray-color) 75deg,var(--bg-mid) 90deg,var(--ray-color) 105deg,var(--bg-mid) 120deg,var(--ray-color) 135deg,var(--bg-mid) 150deg,var(--ray-color) 165deg,var(--bg-mid) 180deg,var(--ray-color) 195deg,var(--bg-mid) 210deg,var(--ray-color) 225deg,var(--bg-mid) 240deg,var(--ray-color) 255deg,var(--bg-mid) 270deg,var(--ray-color) 285deg,var(--bg-mid) 300deg,var(--ray-color) 315deg,var(--bg-mid) 330deg,var(--ray-color) 345deg,var(--bg-mid) 360deg)}' +
@@ -1183,13 +1182,13 @@ function buildMillSrcdoc(qs, allCards) {
     '<div class="overlay" id="introOverlay"><h2 id="introTitle">🧠</h2>' +
     '<p>10 preguntas · Elige la respuesta correcta</p>' +
     '<p style="color:#f5e600;font-size:.85rem">Tienes 20 segundos por pregunta.<br>Usa los comodines con sabiduría.</p>' +
-    '<button class="btn-start" id="btnStart">¡Jugar!</button></div>' +
-    '<div class="overlay" id="endOverlay" hidden><h2 id="endTitle">¡Fin!</h2><div class="big-score" id="endScore">0</div><p id="endMsg"></p><button class="btn-start" id="btnReplay">🔁 Otra vez</button></div>' +
+    '<button class="btn-start" onclick="startGame()">¡Jugar!</button></div>' +
+    '<div class="overlay" id="endOverlay" hidden><h2 id="endTitle">¡Fin!</h2><div class="big-score" id="endScore">0</div><p id="endMsg"></p><button class="btn-start" onclick="startGame()">🔁 Otra vez</button></div>' +
     '<div class="hud"><div class="timer-wrap"><div class="timer-num" id="timerNum">20</div><div class="timer-track"><div class="timer-fill" id="timerFill" style="width:100%"></div></div></div><div class="score-box"><span>✓</span><span id="scoreDisplay">0</span></div></div>' +
     '<div class="question-wrap"><div class="question-text" id="questionText">&nbsp;</div></div>' +
     '<div class="answers" id="answersGrid"></div>' +
     '<div class="feedback" id="feedback"></div>' +
-    '<div class="powerups"><button class="btn-power" id="pwrDouble">Puntuación ×2</button><button class="btn-power" id="pwrFifty">50:50</button><button class="btn-power" id="pwrTime">Tiempo extra</button></div>' +
+    '<div class="powerups"><button class="btn-power" id="pwrDouble" onclick="useDouble()">Puntuación ×2</button><button class="btn-power" id="pwrFifty" onclick="useFifty()">50:50</button><button class="btn-power" id="pwrTime" onclick="useTime()">Tiempo extra</button></div>' +
     '<div class="bottombar"><div class="counter" id="counterText">– de 10</div></div></div>' +
     '<script>' +
     'const LABELS=["A","B","C","D","E","F"];const TIME_PER_Q=20;' +
@@ -1198,7 +1197,7 @@ function buildMillSrcdoc(qs, allCards) {
     'function shuffle(arr){return[...arr].sort(()=>Math.random()-0.5)}' +
     'let questions,qIndex,score,timerVal,timerInt,answered,doubleActive=false,fiftyUsed=false,doubleUsed=false,timeUsed=false;' +
     'function startGame(){questions=shuffle(ALL_QUESTIONS).slice(0,10);qIndex=0;score=0;answered=false;doubleActive=false;fiftyUsed=false;doubleUsed=false;timeUsed=false;document.getElementById("introOverlay").hidden=true;document.getElementById("endOverlay").hidden=true;document.getElementById("scoreDisplay").textContent="0";["pwrDouble","pwrFifty","pwrTime"].forEach(function(id){var b=document.getElementById(id);b.classList.remove("used");b.disabled=false});showQuestion()}' +
-    'function showQuestion(){clearInterval(timerInt);answered=false;doubleActive=false;var q=questions[qIndex];document.getElementById("questionText").textContent=q.q;document.getElementById("counterText").textContent=(qIndex+1)+" de 10";document.getElementById("feedback").textContent="";var grid=document.getElementById("answersGrid");grid.innerHTML="";q.opts.forEach(function(opt,i){var btn=document.createElement("button");btn.className="btn-ans";var lbl=document.createElement("span");lbl.className="lbl";lbl.textContent=LABELS[i];btn.appendChild(lbl);btn.appendChild(document.createTextNode(opt));btn.onclick=function(){pickAnswer(i)};grid.appendChild(btn)});startTimer(TIME_PER_Q)}' +
+    'function showQuestion(){clearInterval(timerInt);answered=false;doubleActive=false;var q=questions[qIndex];document.getElementById("questionText").textContent=q.q;document.getElementById("counterText").textContent=(qIndex+1)+" de 10";document.getElementById("feedback").textContent="";var grid=document.getElementById("answersGrid");grid.innerHTML="";q.opts.forEach(function(opt,i){var btn=document.createElement("button");btn.className="btn-ans";btn.innerHTML="<span class=\'lbl\'>"+LABELS[i]+"</span>"+opt;btn.onclick=function(){pickAnswer(i)};grid.appendChild(btn)});startTimer(TIME_PER_Q)}' +
     'function startTimer(secs){timerVal=secs;updateTimer();timerInt=setInterval(function(){timerVal--;updateTimer();if(timerVal<=0){clearInterval(timerInt);timeUp()}},1000)}' +
     'function updateTimer(){var el=document.getElementById("timerNum");var fill=document.getElementById("timerFill");el.textContent=timerVal;var pct=Math.max(0,timerVal/TIME_PER_Q*100);fill.style.width=pct+"%";fill.style.background=timerVal<=5?"#ff4040":timerVal<=10?"#ff9900":"var(--timer-bar)"}' +
     'function pickAnswer(chosen){if(answered)return;answered=true;clearInterval(timerInt);var q=questions[qIndex];var btns=document.getElementById("answersGrid").querySelectorAll(".btn-ans");btns.forEach(function(b){b.disabled=true});var correct=chosen===q.ans;btns[chosen].classList.add(correct?"correct":"wrong");if(!correct)btns[q.ans].classList.add("correct");var pts=correct?(doubleActive?200:100):0;score+=pts;document.getElementById("scoreDisplay").textContent=score;var fb=document.getElementById("feedback");if(correct){fb.textContent=doubleActive?"✅ ¡Correcto! +200 puntos":"✅ ¡Correcto! +100 puntos";fb.style.color="#80ffb0"}else{fb.textContent="❌ Era: "+q.opts[q.ans];fb.style.color="#ff9090"}setTimeout(nextQuestion,1600)}' +
@@ -1208,7 +1207,6 @@ function buildMillSrcdoc(qs, allCards) {
     'function useDouble(){if(doubleUsed||answered)return;doubleUsed=true;doubleActive=true;document.getElementById("pwrDouble").classList.add("used");document.getElementById("pwrDouble").disabled=true;document.getElementById("feedback").textContent="⚡ ¡Puntuación doble activada!";document.getElementById("feedback").style.color="#ffe050"}' +
     'function useFifty(){if(fiftyUsed||answered)return;fiftyUsed=true;document.getElementById("pwrFifty").classList.add("used");document.getElementById("pwrFifty").disabled=true;var q=questions[qIndex];var btns=document.getElementById("answersGrid").querySelectorAll(".btn-ans");var wrongIdxs=[];btns.forEach(function(b,i){if(i!==q.ans)wrongIdxs.push(i)});wrongIdxs=shuffle(wrongIdxs).slice(0,Math.floor(wrongIdxs.length/2));wrongIdxs.forEach(function(i){btns[i].classList.add("faded");btns[i].disabled=true});document.getElementById("feedback").textContent="🎯 50:50 — eliminadas la mitad de las opciones incorrectas";document.getElementById("feedback").style.color="#aaddff"}' +
     'function useTime(){if(timeUsed||answered)return;timeUsed=true;document.getElementById("pwrTime").classList.add("used");document.getElementById("pwrTime").disabled=true;clearInterval(timerInt);timerVal=Math.min(timerVal+10,TIME_PER_Q+10);document.getElementById("feedback").textContent="⏱ +10 segundos extra";document.getElementById("feedback").style.color="#aaffcc";startTimer(timerVal)}' +
-    'document.addEventListener("click",function(e){var id=e.target.id||e.target.parentElement&&e.target.parentElement.id;if(id==="btnStart"||id==="btnReplay")startGame();else if(id==="pwrDouble")useDouble();else if(id==="pwrFifty")useFifty();else if(id==="pwrTime")useTime()});' +
     '</scr' + 'ipt></html>';
 }
 
@@ -1229,7 +1227,6 @@ function buildCartasSrcdoc(qs) {
     '<style>' +
     ':root{--bg:#5bb8e8;--bg2:#3a9fd4;--card-closed:#2a6fa8;--card-border:#1a4f7a;--card-open-bg:#a0f0d8;--card-open-border:#00c888;--card-num:#fff;--card-q:#006644;--hud-bg:rgba(20,80,130,0.7);--hud-text:#fff;--score-color:#fff;--timer-color:#fff;--ornament:rgba(255,255,255,0.12);color-scheme:light}' +
     '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;background:var(--bg)}' +
-    '[hidden]{display:none!important}' +
     'body{display:flex;align-items:center;justify-content:center;font-family:\'Nunito\',sans-serif;padding:8px;min-height:100%}' +
     '.board{width:100%;max-width:680px;background:var(--bg2);border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.25)}' +
     '.hud{display:flex;align-items:center;justify-content:space-between;background:var(--hud-bg);padding:10px 16px;gap:12px}' +
@@ -1255,8 +1252,8 @@ function buildCartasSrcdoc(qs) {
     '.overlay h2{font-family:\'Bangers\',cursive;font-size:clamp(2rem,7vw,3.2rem);color:#ffe040;text-shadow:2px 3px 0 rgba(0,0,0,0.5)}.overlay .big-score{font-family:\'Bangers\',cursive;font-size:clamp(3.5rem,12vw,5.5rem);color:#fff}.overlay p{color:#c0d8ff;font-weight:700;font-size:1rem;max-width:340px}' +
     '.btn-go{background:#00d060;color:#003020;border:none;border-radius:30px;font-family:\'Nunito\',sans-serif;font-weight:900;font-size:1.1rem;padding:12px 36px;cursor:pointer;transition:transform 0.15s}.btn-go:hover{transform:scale(1.06)}' +
     '</style>' +
-    '<div class="overlay" id="introOv"><h2 id="introTitleC">🃏</h2><p>Toca una carta para revelar la pregunta.<br>Elige la respuesta correcta.</p><p style="color:#ffe040;font-size:.85rem">10 cartas · 30 segundos por carta</p><button class="btn-go" id="btnStartC">¡Empezar!</button></div>' +
-    '<div class="overlay" id="endOv" hidden><h2 id="endTitle">¡Fin!</h2><div class="big-score" id="endScore">0/10</div><p id="endMsg"></p><button class="btn-go" id="btnReplayC">🔁 Otra partida</button></div>' +
+    '<div class="overlay" id="introOv"><h2 id="introTitleC">🃏</h2><p>Toca una carta para revelar la pregunta.<br>Elige la respuesta correcta.</p><p style="color:#ffe040;font-size:.85rem">10 cartas · 30 segundos por carta</p><button class="btn-go" onclick="startGame()">¡Empezar!</button></div>' +
+    '<div class="overlay" id="endOv" hidden><h2 id="endTitle">¡Fin!</h2><div class="big-score" id="endScore">0/10</div><p id="endMsg"></p><button class="btn-go" onclick="startGame()">🔁 Otra partida</button></div>' +
     '<div class="board"><div class="hud"><div class="hud-timer" id="timerNum">30</div><div class="hud-title" id="hudTitle">Toca una para abrirla</div><div class="hud-score"><span>✓</span><span id="scoreDisp">0</span></div></div>' +
     '<div class="instr" id="instrBar">Toca una carta para empezar</div>' +
     '<div class="grid" id="grid"></div>' +
@@ -1276,7 +1273,6 @@ function buildCartasSrcdoc(qs) {
     'function pick(cardIdx,chosen){if(answered)return;answered=true;clearInterval(timerInt);var q=questions[cardIdx];var isOk=chosen===q.ans;var card=document.getElementById("card"+cardIdx);card.classList.remove("active-q");card.classList.add(isOk?"correct":"wrong");card.classList.add("revealed");var btns=document.getElementById("apChoices").querySelectorAll(".btn-choice");btns.forEach(function(b,bi){b.disabled=true;if(bi===q.ans)b.classList.add("correct")});if(!isOk)btns[chosen].classList.add("wrong");if(isOk){correct++;score+=100;streak++}else{streak=0}document.getElementById("scoreDisp").textContent=score;document.getElementById("bbCounter").textContent=correct+" / "+questions.length;document.getElementById("bbStreak").textContent=streak>=2?"🔥 Racha ×"+streak:"";var remaining=questions.filter(function(_,i){var c=document.getElementById("card"+i);return!c.classList.contains("correct")&&!c.classList.contains("wrong")});if(remaining.length===0){setTimeout(showEnd,1200)}else{document.getElementById("hudTitle").textContent="Toca otra carta";document.getElementById("instrBar").textContent=remaining.length+" cartas restantes";setTimeout(resetPanel,800);activeIdx=null}}' +
     'function timeUp(){if(answered)return;answered=true;var card=document.getElementById("card"+activeIdx);card.classList.remove("active-q");card.classList.add("wrong");card.classList.add("revealed");var q=questions[activeIdx];var btns=document.getElementById("apChoices").querySelectorAll(".btn-choice");btns.forEach(function(b,bi){b.disabled=true;if(bi===q.ans)b.classList.add("correct")});streak=0;document.getElementById("bbStreak").textContent="";var remaining=questions.filter(function(_,i){var c=document.getElementById("card"+i);return!c.classList.contains("correct")&&!c.classList.contains("wrong")});if(remaining.length===0){setTimeout(showEnd,1200);return}document.getElementById("hudTitle").textContent="⏰ Tiempo — siguiente carta";setTimeout(resetPanel,900);activeIdx=null}' +
     'function showEnd(){document.getElementById("endOv").hidden=false;document.getElementById("endScore").textContent=correct+"/10";var pct=correct/10;var title,msg;if(pct>=0.9){title="🏆 ¡Perfecto!";msg="¡Dominas esta lección! 🌟"}else if(pct>=0.7){title="🎉 ¡Muy bien!";msg="¡Excelente! Sigue practicando."}else if(pct>=0.5){title="👍 ¡Bien!";msg="Buen trabajo. Repasa y vuelve."}else{title="💪 ¡Sigue!";msg="Practica con Memorizar y vuelve a intentarlo."}document.getElementById("endTitle").textContent=title;document.getElementById("endMsg").textContent=msg}' +
-    'document.addEventListener("click",function(e){var id=e.target.id||e.target.parentElement&&e.target.parentElement.id;if(id==="btnStartC"||id==="btnReplayC")startGame()});' +
     '</scr' + 'ipt></html>';
 }
 
