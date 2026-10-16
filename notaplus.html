@@ -1,4 +1,4 @@
-<!DOCTYPE html>  
+<!DOCTYPE html> 
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -1129,7 +1129,7 @@ function launchJugar(mode) {
   var wrap = document.getElementById('jugar-iframe-wrap');
   wrap.classList.add('active');
   var fr = document.getElementById('jugar-iframe');
-  fr.style.height = '520px';
+  fr.style.height = mode === 'cartas' ? '680px' : '520px';
   fr.srcdoc = srcdoc;
 }
 
