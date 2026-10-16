@@ -656,7 +656,7 @@ function showStep(idx) {
   });
   optsHtml += '</div>';
 
-  var contentHtml = (step.contenido || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  var contentHtml = (step.contenido || '').replace(/\n/g, '<br>').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
   panel.innerHTML =
     '<div style="display:flex;justify-content:space-between;font-size:.75em;color:#5070a0;margin-bottom:6px"><span>Punto ' + (idx+1) + ' de ' + total + '</span><span>' + pct + '%</span></div>' +
@@ -667,7 +667,8 @@ function showStep(idx) {
         '<div style="font-family:Poppins,sans-serif;font-weight:700;font-size:.95em;flex:1">' + (step.titulo || '') + '</div>' +
       '</div>' +
       '<div class="step-body">' +
-        '<div class="step-content">' + contentHtml + '</div>' +
+        (step.imagen ? '<img src="' + step.imagen + '" style="width:100%;border-radius:12px;margin:0 0 14px" loading="lazy">' : '') +
+      '<div class="step-content">' + contentHtml + '</div>' +
         '<button class="step-audio-btn" id="stepAudioBtn" onclick="speakStep(' + idx + ')">🔊 Écouter l\'explication</button>' +
         '<div class="step-check">' +
           '<div class="step-check-q">❓ ' + (step.check.pregunta || '') + '</div>' +
