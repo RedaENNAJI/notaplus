@@ -1,0 +1,25 @@
+<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" style="background:#f8faff">
+  <line x1="40" y1="170" x2="385" y2="170" stroke="#8099cc" stroke-width="1.5"/>
+  <line x1="40" y1="15" x2="40" y2="170" stroke="#8099cc" stroke-width="1.5"/>
+  <text x="388" y="174" font-size="11" fill="#5070a0" font-family="Inter,sans-serif">t (h)</text>
+  <text x="6" y="22" font-size="10" fill="#5070a0" font-family="Inter,sans-serif">C(t)</text>
+  <text x="4" y="34" font-size="9" fill="#5070a0" font-family="Inter,sans-serif">μg/mL</text>
+  <!-- Courbe C(t) -->
+  <path d="M40,166 C75,166 105,145 135,78 C150,50 162,32 174,28 C186,24 196,30 212,48 C240,80 278,128 340,156 C360,163 375,167 385,168" fill="none" stroke="#4e80ee" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Zone absorción -->
+  <rect x="41" y="28" width="132" height="141" fill="#22c55e" opacity="0.07" rx="4"/>
+  <text x="62" y="118" font-size="10" fill="#22c55e" font-weight="bold" font-family="Inter,sans-serif">↑ absorción</text>
+  <!-- Zone eliminación -->
+  <rect x="175" y="28" width="208" height="141" fill="#ef4444" opacity="0.07" rx="4"/>
+  <text x="248" y="118" font-size="10" fill="#ef4444" font-weight="bold" font-family="Inter,sans-serif">↓ eliminación</text>
+  <!-- Cmax -->
+  <circle cx="174" cy="28" r="5" fill="#4e80ee"/>
+  <line x1="174" y1="28" x2="174" y2="170" stroke="#4e80ee" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="155" y="17" font-size="10" fill="#4e80ee" font-weight="bold" font-family="Inter,sans-serif">C_max</text>
+  <text x="167" y="183" font-size="10" fill="#4e80ee" font-family="Inter,sans-serif">T_max</text>
+  <!-- Ticks -->
+  <text x="36" y="183" font-size="9" fill="#8099cc" font-family="Inter,sans-serif">0</text>
+  <text x="88" y="183" font-size="9" fill="#8099cc" font-family="Inter,sans-serif">1</text>
+  <text x="250" y="183" font-size="9" fill="#8099cc" font-family="Inter,sans-serif">4</text>
+  <text x="335" y="183" font-size="9" fill="#8099cc" font-family="Inter,sans-serif">8</text>
+</svg>
