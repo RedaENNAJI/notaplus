@@ -608,7 +608,7 @@ function renderAprender() {
   if (fc.length > 0) {
     html += '<div style="margin-top:28px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--sky);margin-bottom:10px">🃏 Tarjetas de repaso</div><div class="flash-hint">💡 Haz clic en la tarjeta para ver la respuesta</div><div class="flash-grid">';
     fc.forEach(function(card, i) {
-      html += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')"><div class="flash-inner"><div class="flash-front"><div class="flash-q">' + card.pregunta + '</div><div class="flash-hint-txt">Toca para ver ↩</div></div><div class="flash-back"><div class="flash-a">' + card.respuesta + '</div></div></div></div>';
+      html += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')"><div class="flash-inner"><div class="flash-front"><div class="flash-q">' + (card.pregunta||card.f||'') + '</div><div class="flash-hint-txt">Toca para ver ↩</div></div><div class="flash-back"><div class="flash-a">' + (card.respuesta||card.b||'') + '</div></div></div></div>';
     });
     html += '</div></div>';
   }
@@ -739,7 +739,7 @@ function showStepsComplete() {
   if (fc.length > 0) {
     fcHtml += '<div style="margin-top:28px"><div style="font-family:Poppins,sans-serif;font-size:1em;font-weight:700;color:var(--sky);margin-bottom:10px">🃏 Tarjetas de repaso</div><div class="flash-hint">💡 Haz clic en la tarjeta para ver la respuesta</div><div class="flash-grid">';
     fc.forEach(function(card, i) {
-      fcHtml += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')"><div class="flash-inner"><div class="flash-front"><div class="flash-q">' + card.pregunta + '</div><div class="flash-hint-txt">Toca para ver ↩</div></div><div class="flash-back"><div class="flash-a">' + card.respuesta + '</div></div></div></div>';
+      fcHtml += '<div class="flash-card" id="fc' + i + '" onclick="flipCard(' + i + ')"><div class="flash-inner"><div class="flash-front"><div class="flash-q">' + (card.pregunta||card.f||'') + '</div><div class="flash-hint-txt">Toca para ver ↩</div></div><div class="flash-back"><div class="flash-a">' + (card.respuesta||card.b||'') + '</div></div></div></div>';
     });
     fcHtml += '</div></div>';
   }
@@ -948,11 +948,11 @@ function renderFlashcards() {
       '<span class="' + badgeClass + '" id="fcbadge' + i + '">' + badgeTxt + '</span>' +
       '<div class="flash-inner">' +
         '<div class="flash-front">' +
-          '<div class="flash-q">' + card.pregunta + '</div>' +
+          '<div class="flash-q">' + (card.pregunta||card.f||'') + '</div>' +
           '<div class="flash-hint-txt">Toca para ver ↩</div>' +
         '</div>' +
         '<div class="flash-back">' +
-          '<div class="flash-a">' + card.respuesta + '</div>' +
+          '<div class="flash-a">' + (card.respuesta||card.b||'') + '</div>' +
           '<div class="flash-mastery-btns" onclick="event.stopPropagation()">' +
             '<button class="fmb-no" onclick="setMastery(' + i + ',1)">❓ Repasar</button>' +
             '<button class="fmb-mid" onclick="setMastery(' + i + ',2)">🔄 En curso</button>' +
